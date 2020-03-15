@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Box{% endblock %}
+
+{% block body %}
+    <h1>Create new Box</h1>
+
+    {{ include('box/_form.html.twig') }}
+
+    <a href="{{ path('box_index') }}">back to list</a>
+{% endblock %}

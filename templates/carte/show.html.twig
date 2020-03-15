@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carte{% endblock %}
+
+{% block body %}
+    <h1>Carte</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ carte.id }}</td>
+            </tr>
+            <tr>
+                <th>Carte_nom</th>
+                <td>{{ carte.carteNom }}</td>
+            </tr>
+            <tr>
+                <th>Carte_image_recto</th>
+                <td>{{ carte.carteImageRecto }}</td>
+            </tr>
+            <tr>
+                <th>Carte_image_verso</th>
+                <td>{{ carte.carteImageVerso }}</td>
+            </tr>
+            <tr>
+                <th>Carte_type</th>
+                <td>{{ carte.carteType }}</td>
+            </tr>
+            <tr>
+                <th>Carte_effet</th>
+                <td>{{ carte.carteEffet }}</td>
+            </tr>
+            <tr>
+                <th>Carte_montant</th>
+                <td>{{ carte.carteMontant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('carte_index') }}">back to list</a>
+
+    <a href="{{ path('carte_edit', {'id': carte.id}) }}">edit</a>
+
+    {{ include('carte/_delete_form.html.twig') }}
+{% endblock %}

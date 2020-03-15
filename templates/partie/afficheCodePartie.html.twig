@@ -1,0 +1,19 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <h1>Attente de joueur</h1>
+    Code partie : {{ partie.id }}
+    <p>Joueurs inscrits : </p>
+    <ul>
+        {% for jouer in partie.jouers %}
+            <li>
+                {{ jouer.joueur.username }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
