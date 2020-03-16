@@ -54,7 +54,7 @@ class Joueur
     private $joueur_type;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="joueur_id")
+     * @ORM\OneToMany(targetEntity="Jouers", mappedBy="joueur_id")
      */
     private $joueur_update;
 
@@ -153,14 +153,14 @@ class Joueur
     }
 
     /**
-     * @return Collection|Jouer[]
+     * @return Collection|Jouers[]
      */
     public function getJoueurUpdate(): Collection
     {
         return $this->joueur_update;
     }
 
-    public function addJoueurUpdate(Jouer $joueurUpdate): self
+    public function addJoueurUpdate(Jouers $joueurUpdate): self
     {
         if (!$this->joueur_update->contains($joueurUpdate)) {
             $this->joueur_update[] = $joueurUpdate;
@@ -170,7 +170,7 @@ class Joueur
         return $this;
     }
 
-    public function removeJoueurUpdate(Jouer $joueurUpdate): self
+    public function removeJoueurUpdate(Jouers $joueurUpdate): self
     {
         if ($this->joueur_update->contains($joueurUpdate)) {
             $this->joueur_update->removeElement($joueurUpdate);

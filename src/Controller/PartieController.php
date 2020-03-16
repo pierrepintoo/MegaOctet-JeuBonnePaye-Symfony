@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\Jouer;
+use App\Entity\Jouers;
 use App\Entity\Partie;
 use App\Repository\BoxRepository;
 use App\Repository\CarteRepository;
@@ -55,13 +55,13 @@ class PartieController extends AbstractController
             $em = $this->getDoctrine()->getManager();
             $em->persist($partie);
 
-            $jouer = new Jouer();
+            $jouer = new Jouers();
             $jouer->setPartieId($partie);
             $jouer->setClassement(1);
             $jouer->setJoueur($joueur1);
             $em->persist($jouer);
 
-            $jouer = new Jouer();
+            $jouer = new Jouers();
             $jouer->setPartieId($partie);
             $jouer->setClassement(2);
             $jouer->setJoueur($joueur2);

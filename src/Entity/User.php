@@ -5,11 +5,13 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields={"username"}, message="There is already an account with this username")
  */
 class User implements UserInterface
 {
@@ -39,9 +41,11 @@ class User implements UserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="user_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Jouers", mappedBy="user")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $jouers;
+
 
     public function __construct()
     {
@@ -122,33 +126,35 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Jouer[]
+     * @return Collection|Jouers[]
      */
     public function getJouers(): Collection
     {
         return $this->jouers;
     }
 
-    public function addJouer(Jouer $jouer): self
+    public function addJouer(Jouers $jouer): self
     {
         if (!$this->jouers->contains($jouer)) {
             $this->jouers[] = $jouer;
-            $jouer->setJoueur($this);
+            $jouer->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeJouer(Jouer $jouer): self
+    public function removeJouer(Jouers $jouer): self
     {
         if ($this->jouers->contains($jouer)) {
             $this->jouers->removeElement($jouer);
             // set the owning side to null (unless already changed)
-            if ($jouer->getJoueur() === $this) {
-                $jouer->setJoueur(null);
+            if ($jouer->getUser() === $this) {
+                $jouer->setUser(null);
             }
         }
 
         return $this;
     }
+
+
 }

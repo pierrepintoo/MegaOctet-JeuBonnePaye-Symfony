@@ -59,13 +59,16 @@ class Partie
     private $partie_date_fin;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="partie_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Jouers", mappedBy="partie")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $jouers;
+    
 
     public function __construct()
     {
         $this->partie_update = new ArrayCollection();
+        $this->jouers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -170,14 +173,14 @@ class Partie
     }
 
     /**
-     * @return Collection|Jouer[]
+     * @return Collection|Jouers[]
      */
-    public function getPartieUpdate(): Collection
+    public function getJouers(): Collection
     {
         return $this->partie_update;
     }
 
-    public function addPartieUpdate(Jouer $partieUpdate): self
+    public function addPartieUpdate(Jouers $partieUpdate): self
     {
         if (!$this->partie_update->contains($partieUpdate)) {
             $this->partie_update[] = $partieUpdate;
@@ -187,13 +190,36 @@ class Partie
         return $this;
     }
 
-    public function removePartieUpdate(Jouer $partieUpdate): self
+    public function removePartieUpdate(Jouers $partieUpdate): self
     {
         if ($this->partie_update->contains($partieUpdate)) {
             $this->partie_update->removeElement($partieUpdate);
             // set the owning side to null (unless already changed)
             if ($partieUpdate->getPartieId() === $this) {
                 $partieUpdate->setPartieId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function addJouer(Jouers $jouer): self
+    {
+        if (!$this->jouers->contains($jouer)) {
+            $this->jouers[] = $jouer;
+            $jouer->setPartie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeJouer(Jouers $jouer): self
+    {
+        if ($this->jouers->contains($jouer)) {
+            $this->jouers->removeElement($jouer);
+            // set the owning side to null (unless already changed)
+            if ($jouer->getPartie() === $this) {
+                $jouer->setPartie(null);
             }
         }
 

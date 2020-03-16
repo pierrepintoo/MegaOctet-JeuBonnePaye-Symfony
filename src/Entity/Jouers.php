@@ -5,29 +5,33 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\JouerRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\JouersRepository")
  */
-class Jouer
+class Jouers
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @ORM\JoinColumn(nullable=true)
+
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partie", inversedBy="jouers")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $partie_id;
+    private $partie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="jouers")
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $user_id;
+    private $user;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="integer")
      */
     private $classement;
 
@@ -37,17 +41,17 @@ class Jouer
     private $argent;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @ORM\Column(type="text")
      */
     private $cartes;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $pion;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $box;
 
@@ -61,32 +65,31 @@ class Jouer
      */
     private $tour;
 
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPartieId(): ?Partie
+    public function getPartie(): ?Partie
     {
-        return $this->partie_id;
+        return $this->partie;
     }
 
-    public function setPartieId(?Partie $partie_id): self
+    public function setPartie(?Partie $partie): self
     {
-        $this->partie_id = $partie_id;
+        $this->partie = $partie;
 
         return $this;
     }
 
-    public function getUserId(): ?User
+    public function getUser(): ?User
     {
-        return $this->user_id;
+        return $this->user;
     }
 
-    public function setUserId(?User $user_id): self
+    public function setUser(?User $user): self
     {
-        $this->user_id = $user_id;
+        $this->user = $user;
 
         return $this;
     }
@@ -96,7 +99,7 @@ class Jouer
         return $this->classement;
     }
 
-    public function setClassement(?int $classement): self
+    public function setClassement(int $classement): self
     {
         $this->classement = $classement;
 
@@ -120,7 +123,7 @@ class Jouer
         return $this->cartes;
     }
 
-    public function setCartes(?string $cartes): self
+    public function setCartes(string $cartes): self
     {
         $this->cartes = $cartes;
 
@@ -139,12 +142,12 @@ class Jouer
         return $this;
     }
 
-    public function getBox(): ?int
+    public function getBox(): ?string
     {
         return $this->box;
     }
 
-    public function setBox(?int $box): self
+    public function setBox(?string $box): self
     {
         $this->box = $box;
 
@@ -174,6 +177,4 @@ class Jouer
 
         return $this;
     }
-
-
 }
