@@ -59,16 +59,16 @@ class Partie
     private $partie_date_fin;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Jouers", mappedBy="partie")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="partie")
      */
     private $jouers;
-    
+
 
     public function __construct()
     {
         $this->partie_update = new ArrayCollection();
         $this->jouers = new ArrayCollection();
+        $this->user = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -173,37 +173,14 @@ class Partie
     }
 
     /**
-     * @return Collection|Jouers[]
+     * @return Collection|Jouer[]
      */
     public function getJouers(): Collection
     {
-        return $this->partie_update;
+        return $this->jouers;
     }
 
-    public function addPartieUpdate(Jouers $partieUpdate): self
-    {
-        if (!$this->partie_update->contains($partieUpdate)) {
-            $this->partie_update[] = $partieUpdate;
-            $partieUpdate->setPartieId($this);
-        }
-
-        return $this;
-    }
-
-    public function removePartieUpdate(Jouers $partieUpdate): self
-    {
-        if ($this->partie_update->contains($partieUpdate)) {
-            $this->partie_update->removeElement($partieUpdate);
-            // set the owning side to null (unless already changed)
-            if ($partieUpdate->getPartieId() === $this) {
-                $partieUpdate->setPartieId(null);
-            }
-        }
-
-        return $this;
-    }
-
-    public function addJouer(Jouers $jouer): self
+    public function addJouer(Jouer $jouer): self
     {
         if (!$this->jouers->contains($jouer)) {
             $this->jouers[] = $jouer;
@@ -213,7 +190,7 @@ class Partie
         return $this;
     }
 
-    public function removeJouer(Jouers $jouer): self
+    public function removeJouer(Jouer $jouer): self
     {
         if ($this->jouers->contains($jouer)) {
             $this->jouers->removeElement($jouer);
@@ -225,4 +202,7 @@ class Partie
 
         return $this;
     }
+
+
+
 }

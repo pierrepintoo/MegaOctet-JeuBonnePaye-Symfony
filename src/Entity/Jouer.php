@@ -5,28 +5,24 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\JouersRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\JouerRepository")
  */
-class Jouers
+class Jouer
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
-     * @ORM\JoinColumn(nullable=true)
-
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Partie", inversedBy="jouers")
-     * @ORM\JoinColumn(nullable=true)
      */
     private $partie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="jouers")
-     * @ORM\JoinColumn(nullable=true)
      */
     private $user;
 
@@ -36,22 +32,17 @@ class Jouers
     private $classement;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $argent;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $cartes;
-
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $pion;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $box;
 
@@ -106,48 +97,36 @@ class Jouers
         return $this;
     }
 
-    public function getArgent(): ?int
+    public function getArgent(): ?float
     {
         return $this->argent;
     }
 
-    public function setArgent(?int $argent): self
+    public function setArgent(?float $argent): self
     {
         $this->argent = $argent;
 
         return $this;
     }
 
-    public function getCartes(): ?string
-    {
-        return $this->cartes;
-    }
-
-    public function setCartes(string $cartes): self
-    {
-        $this->cartes = $cartes;
-
-        return $this;
-    }
-
-    public function getPion(): ?string
+    public function getPion(): ?int
     {
         return $this->pion;
     }
 
-    public function setPion(?string $pion): self
+    public function setPion(?int $pion): self
     {
         $this->pion = $pion;
 
         return $this;
     }
 
-    public function getBox(): ?string
+    public function getBox(): ?int
     {
         return $this->box;
     }
 
-    public function setBox(?string $box): self
+    public function setBox(?int $box): self
     {
         $this->box = $box;
 

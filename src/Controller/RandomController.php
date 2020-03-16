@@ -7,6 +7,9 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class RandomController extends AbstractController
 {
+    /**
+     * @Route("/random/number", name="app_random_number")
+     */
     public function number()
     {
         $number = mt_rand(1, 6);

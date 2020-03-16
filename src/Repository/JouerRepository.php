@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Jouers;
+use App\Entity\Jouer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Jouers|null find($id, $lockMode = null, $lockVersion = null)
- * @method Jouers|null findOneBy(array $criteria, array $orderBy = null)
- * @method Jouers[]    findAll()
- * @method Jouers[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Jouer|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Jouer|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Jouer[]    findAll()
+ * @method Jouer[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class JouersRepository extends ServiceEntityRepository
+class JouerRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Jouers::class);
+        parent::__construct($registry, Jouer::class);
     }
 
     // /**
-    //  * @return Jouers[] Returns an array of Jouers objects
+    //  * @return Jouer[] Returns an array of Jouer objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class JouersRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Jouers
+    public function findOneBySomeField($value): ?Jouer
     {
         return $this->createQueryBuilder('j')
             ->andWhere('j.exampleField = :val')

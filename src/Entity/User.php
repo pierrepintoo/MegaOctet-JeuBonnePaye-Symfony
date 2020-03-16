@@ -31,25 +31,25 @@ class User implements UserInterface
      * @ORM\Column(type="json")
      * @Assert\NotBlank()
      */
-    private $roles = [];
+    private $roles = ["ROLE_USER"];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
      */
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Jouers", mappedBy="user")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="user")
      */
     private $jouers;
+
 
 
     public function __construct()
     {
         $this->jouers = new ArrayCollection();
+        $this->parties = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -126,14 +126,14 @@ class User implements UserInterface
     }
 
     /**
-     * @return Collection|Jouers[]
+     * @return Collection|Jouer[]
      */
     public function getJouers(): Collection
     {
         return $this->jouers;
     }
 
-    public function addJouer(Jouers $jouer): self
+    public function addJouer(Jouer $jouer): self
     {
         if (!$this->jouers->contains($jouer)) {
             $this->jouers[] = $jouer;
@@ -143,7 +143,7 @@ class User implements UserInterface
         return $this;
     }
 
-    public function removeJouer(Jouers $jouer): self
+    public function removeJouer(Jouer $jouer): self
     {
         if ($this->jouers->contains($jouer)) {
             $this->jouers->removeElement($jouer);
@@ -155,6 +155,8 @@ class User implements UserInterface
 
         return $this;
     }
+
+
 
 
 }
