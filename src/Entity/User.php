@@ -44,6 +44,31 @@ class User implements UserInterface
      */
     private $jouers;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $avatar = "default.jpg";
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbPartie = 0;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $position = 0;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $mail = "toto@toto.to";
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $argentTotal = 0;
+
 
 
     public function __construct()
@@ -152,6 +177,66 @@ class User implements UserInterface
                 $jouer->setUser(null);
             }
         }
+
+        return $this;
+    }
+    
+    public function getAvatar(): ?string
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(string $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function getNbPartie(): ?int
+    {
+        return $this->nbPartie;
+    }
+
+    public function setNbPartie(int $nbPartie): self
+    {
+        $this->nbPartie = $nbPartie;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(int $position): self
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getArgentTotal(): ?int
+    {
+        return $this->argentTotal;
+    }
+
+    public function setArgentTotal(int $argentTotal): self
+    {
+        $this->argentTotal = $argentTotal;
 
         return $this;
     }

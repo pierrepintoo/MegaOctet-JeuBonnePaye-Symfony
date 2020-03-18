@@ -51,7 +51,7 @@ class Partie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $partie_etat = "NC";
+    private $partie_etat = "En cours";
 
     /**
      * @ORM\Column(type="datetime", nullable=true)

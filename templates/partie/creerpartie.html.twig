@@ -3,32 +3,7 @@
 {% block title %}
 
 {% endblock %}
-
-{% block body %}
-    <h1>Créer une nouvelle partie</h1>
-    <form action="" method="POST">
-        <div>
-            <label for="joueur1">Joueur 1</label>
-            <select name="joueur1" id="joueur1">
-                <option value=""></option>
-                {% for joueur in joueurs %}
-                    <option value="{{ joueur.id }}">{{ joueur.username }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <label for="joueur2">Joueur 2</label>
-            <select name="joueur2" id="joueur2">
-                <option value=""></option>
-                {% for joueur in joueurs %}
-                    <option value="{{ joueur.id }}">{{ joueur.username }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div>
-            <button type="submit">Créer la partie</button>
-        </div>
-
-    </form>
+{% block content %}
+    <a href="{{ path('partie_new-partie') }}">Créer une partie !</a>
 {% endblock %}
 

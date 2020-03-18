@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21f49150-b17c-41db-bae0-48c19d50ffe4" name="Default Changelist" comment="test">
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/AccueilController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jeu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jeu.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/easy_admin.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/easy_admin.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/validator.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/validator.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/RandomController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RandomController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Jouers.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PartieController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PartieController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Jouer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Jouer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Partie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Partie.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/JouersRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Security/LoginAuthenticator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/random/number.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/random/number.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -123,6 +127,7 @@
   <component name="ProjectId" id="1XoF7UDQjH2FvuVwmKAgwV1LB2N" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
@@ -172,7 +177,8 @@
       <workItem from="1584116724657" duration="1975000" />
       <workItem from="1584308957335" duration="632000" />
       <workItem from="1584313545473" duration="3809000" />
-      <workItem from="1584366983729" duration="5656000" />
+      <workItem from="1584366983729" duration="7656000" />
+      <workItem from="1584530788460" duration="13247000" />
     </task>
     <servers />
   </component>

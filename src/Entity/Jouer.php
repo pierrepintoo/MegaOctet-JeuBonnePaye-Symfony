@@ -56,6 +56,11 @@ class Jouer
      */
     private $tour;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $code_partie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -156,4 +161,17 @@ class Jouer
 
         return $this;
     }
+
+    public function getCodePartie(): ?int
+    {
+        return $this->code_partie;
+    }
+
+    public function setCodePartie(int $code_partie): self
+    {
+        $this->code_partie = $code_partie;
+
+        return $this;
+    }
+
 }
