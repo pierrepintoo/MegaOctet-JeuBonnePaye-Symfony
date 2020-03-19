@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="21f49150-b17c-41db-bae0-48c19d50ffe4" name="Default Changelist" comment="test">
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/AccueilController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jeu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jeu.iml" afterDir="false" />
+    <list default="true" id="21f49150-b17c-41db-bae0-48c19d50ffe4" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/templates/partie/rejoindre-partie.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PartieController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PartieController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Jouer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Jouer.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/Partie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Partie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/random/number.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/random/number.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -178,8 +169,17 @@
       <workItem from="1584308957335" duration="632000" />
       <workItem from="1584313545473" duration="3809000" />
       <workItem from="1584366983729" duration="7656000" />
-      <workItem from="1584530788460" duration="13247000" />
+      <workItem from="1584530788460" duration="15663000" />
+      <workItem from="1584611648877" duration="3629000" />
     </task>
+    <task id="LOCAL-00001" summary="Création d'une Partie/ Création d'un code de Partie / Si pas connecté, nav bar sans username / nouvelle beauté de la page d'accueil du jeu">
+      <created>1584554059766</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1584554059766</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -200,6 +200,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test" />
-    <option name="LAST_COMMIT_MESSAGE" value="test" />
+    <MESSAGE value="Création d'une Partie/ Création d'un code de Partie / Si pas connecté, nav bar sans username / nouvelle beauté de la page d'accueil du jeu" />
+    <option name="LAST_COMMIT_MESSAGE" value="Création d'une Partie/ Création d'un code de Partie / Si pas connecté, nav bar sans username / nouvelle beauté de la page d'accueil du jeu" />
   </component>
 </project>

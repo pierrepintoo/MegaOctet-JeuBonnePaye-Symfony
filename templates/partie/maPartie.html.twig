@@ -6,6 +6,9 @@
 
 {% block content %}
         <h1>Heyo, ton code est {{ codePartie }}, partage le avec tes potes si tu veux jouer avec eux !</h1>
-
+        <h2>Voici les joueurs connectés à la partie : </h2>
+        {% for user in usersPartie %}
+                <p>{{ user.user.username }}</p>
+        {% endfor %}
 {% endblock %}
 
