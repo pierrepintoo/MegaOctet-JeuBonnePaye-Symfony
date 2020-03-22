@@ -63,12 +63,12 @@ class Partie
      */
     private $jouers;
 
-
     public function __construct()
     {
         $this->partie_update = new ArrayCollection();
         $this->jouers = new ArrayCollection();
         $this->user = new ArrayCollection();
+        $this->code_partie = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -202,7 +202,6 @@ class Partie
 
         return $this;
     }
-
 
 
 }

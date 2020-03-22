@@ -7,16 +7,17 @@ use App\Entity\Partie;
 use App\Repository\BoxRepository;
 use App\Repository\CarteRepository;
 use App\Repository\JouerRepository;
+use App\Repository\PartieRepository;
 use App\Repository\UserRepository;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
-
 /**
- * @Route("/partie", name="partie")
+ * @Route("/partie", name="partie_")
  */
 class PartieController extends AbstractController
 {
@@ -33,7 +34,7 @@ class PartieController extends AbstractController
     }
 
     /**
-     * @Route("/creer-partie", name="-creer")
+     * @Route("/creer-partie", name="creer")
      */
     public function creerPartie(Request $request, UserRepository $userRepository, CarteRepository $carteRepository, JouerRepository $JouerRepository)
     {
@@ -71,65 +72,142 @@ class PartieController extends AbstractController
             $em->persist($jouer);
 
             $em->flush();*/
-            $codePartie = mt_rand(1000, 100000);
+            $partieId = mt_rand(1000, 100000);
             //$codePartie = 3000;
-            $code = $JouerRepository->findBy(array('code_partie'=>$codePartie));
+            /*$code = $JouerRepository->findBy(array('code_partie'=>$codePartie));
             if(!empty($code))
             {
                 $codePartie = mt_rand(1000, 100000);
             }
-            return $this->redirectToRoute('new-partie', ['codePartie' => $codePartie]);
+            */
+            $cartes = $carteRepository->findAll();
+            $tableauDeCartes = ['acquisition' => [], 'evenement' => [], 'courrier' => []];
+            foreach ($cartes as $carte)
+            {
+                $tableauDeCartes[$carte->getCarteType()][] = $carte->getId();
+            }
+            shuffle($tableauDeCartes['acquisition']);
+            shuffle($tableauDeCartes['evenement']);
+            shuffle($tableauDeCartes['courrier']);
+            $partie = new Partie();
+            $partie->setPartieDateDebut(new \DateTime('now'));
+            $partie->setPartiePioche($tableauDeCartes);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($partie);
+            $em->flush();
+            return $this->redirectToRoute('partie_new-partie',
+                [
+                'codePartie' => $partie->getId(),
+                ]);
         }
 
         return $this->render('partie/creerpartie.html.twig');
     }
 
     /**
-     * @Route("/new-partie/{codePartie}", name="_new-partie")
+     * @Route("/new-partie/{codePartie}", name="new-partie")
+     * @param $codePartie
+     * @return Response
+     * @throws Exception
      */
-    public function newPartie($codePartie, Request $request, UserRepository $userRepository, CarteRepository $carteRepository, JouerRepository $JouerRepository){
+    public function newPartie($codePartie, Request $request, UserRepository $userRepository, CarteRepository $carteRepository, JouerRepository $JouerRepository, PartieRepository $PartieRepository){
 
+
+
+
+
+        $usersPartie = $JouerRepository->findBy
+        (
+            ['partie'=> $codePartie],
+            ['user'=> 'ASC']
+        );
 
 
         $userConnecte = $this->getUser();
 
-        $cartes = $carteRepository->findAll();
-        $tableauDeCartes = ['acquisition' => [], 'evenement' => [], 'courrier' => []];
-        foreach ($cartes as $carte)
-        {
-            $tableauDeCartes[$carte->getCarteType()][] = $carte->getId();
-        }
-        shuffle($tableauDeCartes['acquisition']);
-        shuffle($tableauDeCartes['evenement']);
-        shuffle($tableauDeCartes['courrier']);
-
-
-        $partie = new Partie();
-        $partie->setPartieDateDebut(new \DateTime('now'));
-        $partie->setPartiePioche($tableauDeCartes);
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($partie);
-
-        $jouer = new Jouer();
-        $jouer->setPartie($partie);
-        $jouer->setClassement(1);
-        $jouer->setUser($userConnecte);
-        $jouer->setCodePartie($codePartie);
-        $em->persist($jouer);
-        $em->flush();
-        $usersPartie = $JouerRepository->findBy(
-            ['code_partie'=>$codePartie],
-            ['user'=> 'ASC']
+        $testUserDejaDansLaPartie = $JouerRepository->findBy
+        (
+            [
+                'user' => $userConnecte,
+                'partie' => $codePartie
+            ]
         );
-        dump($usersPartie);
+        /*$testClassement = $JouerRepository->findBy
+        (
+            [
+                'user' => $userConnecte,
+                'classement' => $classement
+            ]
+        );
+        switch ($classement){
+                case 1:
+                    $classement = 2;
+                    break;
+                case 2:
+                    $classement = 3;
+                    break;
+                case 3:
+                    $classement = 4;
+                    break;
+                case 4:
+                    $classement = 5;
+                    break;
+                case 5:
+                    $classement = 6;
+                    break;
+            }
+        ;*/
 
+        $nbUsers = count($usersPartie);
+        if($nbUsers >= 6){
+            $this->redirectToRoute('app_partie',
+                [
+                    'users' => $usersPartie,
+                    'code_partie' => $codePartie
+                ]);
+        }
+
+
+
+
+        if(empty($testUserDejaDansLaPartie) && $nbUsers < 7)
+        {
+            $code = $JouerRepository->findBy(array('partie'=>$codePartie));
+
+
+
+            $jouer = new Jouer();
+            $partieEnCours = $PartieRepository->findBy(['id' => $codePartie]);
+            $partieEnCoursId = $partieEnCours[0]->getId();
+            $jouer->setPartie($partieEnCoursId);
+            $jouer->setUser($userConnecte);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($jouer);
+            $em->flush();
+
+        }
         return $this->render('partie/maPartie.html.twig', array(
             'codePartie' => $codePartie,
             'usersPartie' => $usersPartie
         ));
-
-
     }
+
+    /**
+     * @Route("/partie/{codePartie}", name="app_partie")
+     */
+    public function jouerPartie($codePartie, JouerRepository $JouerRepository){
+
+        $usersPartie = $JouerRepository->findBy
+        (
+            ['code_partie'=>$codePartie],
+            ['classement'=> 'ASC']
+        );
+
+
+
+        return $this->render('partie/partieEnCours.html.twig');
+    }
+
     /**
      * @Route("/maPartie", name="creer-partie")
      */
@@ -192,20 +270,26 @@ class PartieController extends AbstractController
     }
 
     /**
-     * @Route("/rejoindre-partie", name="-rejoindre")
+     * @Route("/rejoindre-partie", name="rejoindre")
      */
     public function rejoindrePartie(Request $request, JouerRepository $JouerRepository)
     {
-        if($request->isMethod('POST')){
+        if($request->isMethod('POST'))
+        {
             $codeRecupere = $request->request->get('codeRecupere');
-            $partieJoueurs = $JouerRepository->findBy(
+            $partieJoueurs = $JouerRepository->findBy
+            (
                 ['code_partie'=>$codeRecupere],
                 ['user'=> 'ASC']
             );
-            /*if (!empty($partieJoueurs))
+            if (!empty($partieJoueurs))
             {
-                $this->redirectToRoute()
-            }*/
+                $this->redirectToRoute('partie_new-partie',
+                    [
+                        'codePartie' => $codeRecupere
+                    ]
+                );
+            }
         }
         return $this->render('partie/rejoindre-partie.html.twig');
     }

@@ -8,3 +8,5 @@ easy_admin:
       class: App\Entity\User
     Partie:
       class: App\Entity\Partie
+    Jouer:
+      class: App\Entity\Jouer

@@ -27,9 +27,9 @@ class Jouer
     private $user;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
-    private $classement;
+    private $classement = 1;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -56,10 +56,6 @@ class Jouer
      */
     private $tour;
 
-    /**
-     * @ORM\Column(type="integer")
-     */
-    private $code_partie;
 
     public function getId(): ?int
     {
@@ -71,7 +67,7 @@ class Jouer
         return $this->partie;
     }
 
-    public function setPartie(?Partie $partie): self
+    public function setPartie($partie): self
     {
         $this->partie = $partie;
 
@@ -162,16 +158,6 @@ class Jouer
         return $this;
     }
 
-    public function getCodePartie(): ?int
-    {
-        return $this->code_partie;
-    }
 
-    public function setCodePartie(int $code_partie): self
-    {
-        $this->code_partie = $code_partie;
-
-        return $this;
-    }
 
 }
