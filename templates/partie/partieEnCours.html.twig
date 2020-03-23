@@ -2,4 +2,37 @@
 
 {% block content %}
     <h1> Voici la partie en cours </h1>
+    <table class="tabInfosJoueur">
+        <tbody>
+            <tr>
+                {% for user in partie.jouers %}
+                    <td><h2>{{ user.user.username }}</h2></td>
+                {% endfor %}
+            </tr>
+            <tr>
+            {% for user in partie.jouers %}
+                <td><p>argent : {{ user.argent }}</p></td>
+            {% endfor %}
+            </tr>
+            <tr>
+            {% for user in partie.jouers %}
+                <td><p>case actuelle : {{ user.box }}</p></td>
+            {% endfor %}
+            </tr>
+            <tr>
+                {% for user in partie.jouers %}
+                    <td><p>dernier lancer de dé : {{ user.de }}</p></td>
+                {% endfor %}
+            </tr>
+            </tr>
+            <tr>
+                {% for user in partie.jouers %}
+                    <td><p>son pion: {{ user.pion }}</p></td>
+                {% endfor %}
+            </tr>
+        </tbody>
+    </table>
+    <form method="post" action="" name="de">
+        <button type="submit">Lancer le dé</button>
+    </form>
 {% endblock %}
