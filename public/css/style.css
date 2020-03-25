@@ -1,7 +1,76 @@
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One&display=swap');
+
 .InscriptionType{
     color: red;
 }
+/*GENERAL*/
+a:hover {
+  font-weight: 800;
+  text-decoration: none;
+}
+/*FONTS*/
+/*PAGE ACCUEIL*/
+.accueil{
+  background: #674c99;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../img/background_accueil.svg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+#accueil {
 
-.tabInfosJoueur{
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+#accueil img{
+  width: 50%;
+}
+#accueil h1 {
+  font-family: 'Fjalla One';
+  color: #e2e2e1;
+  text-align: center;
+}
+#accueil > div {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+#accueil .button {
+  background-color: #e2e2e1;
+  width: 35%;
+  height: 250%;
+  border-radius: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#accueil .button > a {
+  color: #674c9a;
+  font-family: 'Fjalla One';
+  font-size: 1.3rem;
+}
+/*Partie en cours*/
+.joueurs{
+  background: pink;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.joueurs:nth-child(odd){
+background: lightgrey;
+}
+.img_joueurs {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+#tabInfosJoueur{
     width: 100%;
+    display: flex;
 }

@@ -9,6 +9,7 @@ use App\Repository\CarteRepository;
 use App\Repository\JouerRepository;
 use App\Repository\PartieRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -42,14 +43,14 @@ class PartieController extends AbstractController
         if ($request->isMethod('POST'))
         {
             $cartes = $carteRepository->findAll();
-            $tableauDeCartes = ['acquisition' => [], 'evenement' => [], 'courrier' => []];
+            $tableauDeCartes = ['tp' => [], 'evenement' => [], 'notif' => []];
             foreach ($cartes as $carte)
             {
                 $tableauDeCartes[$carte->getCarteType()][] = $carte->getId();
             }
-            shuffle($tableauDeCartes['acquisition']);
+            shuffle($tableauDeCartes['tp']);
             shuffle($tableauDeCartes['evenement']);
-            shuffle($tableauDeCartes['courrier']);
+            shuffle($tableauDeCartes['notif']);
             $partie = new Partie();
             $partie->setPartieDateDebut(new \DateTime('now'));
             $partie->setPartiePioche($tableauDeCartes);
@@ -65,7 +66,35 @@ class PartieController extends AbstractController
         return $this->render('partie/creerpartie.html.twig');
     }
 
+    /**
+     * @Route("/rejoindre-partie", name="rejoindre")
+     */
+    public function rejoindrePartie(Request $request, JouerRepository $JouerRepository)
+    {
+        if($request->isMethod('POST'))
+        {
+            $codeRecupere = $request->request->get('codeRecupere');
+            $partieJoueurs = $JouerRepository->findBy
+            (
+                ['partie'=>$codeRecupere]
+            );
+            if (!empty($partieJoueurs))
+            {
+                return $this->redirectToRoute('partie_new-partie',
+                    [
+                        'codePartie' => $codeRecupere
+                    ]
+                );
+            } else {
+                echo 'La code partie que tu as inséré n\'éxiste pas';
+            }
+        }
+        return $this->render('partie/rejoindre-partie.html.twig');
+    }
 
+    /**
+     * @param $codePartie
+     */
     public function addUserToParty(JouerRepository $JouerRepository, $codePartie){
         $usersPartie = $JouerRepository->findBy
         (
@@ -82,12 +111,28 @@ class PartieController extends AbstractController
                 'partie' => $codePartie
             ]
         );
-        $Joueur = $this->getDoctrine()
-            ->getRepository(Jouer::class)
-            ->findBy(['user' => $codePartie]);
-        /*$classementJoueur = $Joueur->getClassement();
-        dump($classementJoueur);
-        switch ($classementJoueur){
+
+        ;
+
+        $nbUsers = count($usersPartie);
+
+        if(empty($testUserDejaDansLaPartie) && $nbUsers < 7)
+        {
+            $jouer = new Jouer();
+            $partieEnCoursId = $this->getDoctrine()
+                ->getRepository(Partie::class)
+                ->find($codePartie);
+            $jouer->setPartie($partieEnCoursId);
+            $jouer->setUser($userConnecte);
+            $jouer->setClassement(1);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($jouer);
+            $em->flush();
+            $user = $this->getUser();
+            $Joueur = $JouerRepository->findOneBy(['partie' => $codePartie, 'user' => $user]);
+            dump($Joueur);
+            $classementJoueur = $Joueur->getClassement();
+            switch ($classementJoueur){
                 case 1:
                     $classementJoueur = 2;
                     break;
@@ -104,24 +149,13 @@ class PartieController extends AbstractController
                     $classementJoueur  = 6;
                     break;
             }
-        ;*/
 
-        $nbUsers = count($usersPartie);
-
-        if(empty($testUserDejaDansLaPartie) && $nbUsers < 7)
-        {
-            $jouer = new Jouer();
-            $partieEnCoursId = $this->getDoctrine()
-                ->getRepository(Partie::class)
-                ->find($codePartie);
-            $jouer->setPartie($partieEnCoursId);
-            $jouer->setUser($userConnecte);
-            $jouer->setClassement(1);
+            $Joueur->setClassement($classementJoueur);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($jouer);
+            $em->persist($user);
             $em->flush();
-
         }
+
     }
 
     /**
@@ -139,11 +173,22 @@ class PartieController extends AbstractController
             ['user'=> 'ASC']
         );
         $nbUsers = count($usersPartie);
+        $codePartie = $codePartie->getId();
         if($nbUsers >= 6){
             return $this->redirectToRoute('partie_app_partie',
                 [
                     'codePartie' => $codePartie
                 ]);
+        }
+
+        if($request->isMethod('POST'))
+        {
+                return $this->redirectToRoute('partie_new-partie',
+                    [
+                        'codePartie' => $codePartie,
+                        'usersPartie' => $usersPartie
+                    ]
+                );
         }
 
         return $this->render('partie/maPartie.html.twig', array(
@@ -156,28 +201,64 @@ class PartieController extends AbstractController
      * @Route("/{codePartie}", name="app_partie")
      * @param $codePartie
      */
-    public function jouerPartie(Partie $codePartie, JouerRepository $JouerRepository, Request $request, $queryBuilder){
+    public function jouerPartie(Partie $codePartie, CarteRepository $carteRepository, JouerRepository $JouerRepository,Request $request){
 
 
-        if ($request->isMethod('POST'))
+        if ($request->isMethod('GET'))
         {
+
             $user = $this->getUser();
-            $objetJouerDeUser = $JouerRepository->findBy(['partie'=>$codePartie, 'user' => $user]);
-            dump($objetJouerDeUser);
-            $de = mt_rand(1, 6);
-            /*$queryBuilder
-                ->insert('jouer')
-                ->values(
-                    array(
-                        'de' => '?',
-                    )
-                )
-                ->setParameter(0, $de)
+            $objetJouerDeUser = $JouerRepository->findOneBy(['partie' => $codePartie, 'user' => $user]);
+            $de = 1;
+            $anciennePosition = $objetJouerDeUser->getBox();
+            $anciennePosition += $de;
+            $argentEnCours = $objetJouerDeUser->getArgent();
+            switch ($anciennePosition){
+                case 2:
+                    $argentEnCours  += 500;
+                    break;
+                case 3:
+                    $argentEnCours += 700;
+                    break;
+                case 4:
+                    $pioche = $codePartie->getPartiePioche();
+                    $carteId = $pioche['tp'][0];
+                    $objetCarte = $carteRepository->findOneBy(['id' => $carteId]);
+                    $carteEffet = $objetCarte->getCarteEffet();
+                    $carteMontant = $objetCarte->getCarteMontant();
+                    if($carteEffet == 'negatif'){
+                        $argentEnCours -= $carteMontant;
+                    } elseif ($carteEffet == 'positif'){
+                        $argentEnCours += $carteMontant;
+                    }
+                    if($codePartie->getPartieDefausse() == null){
+                        $tableauDeCartes = ['tp' => [], 'evenement' => [], 'notif' => []];
+                    }
+                    $tableauDeCartes[$objetCarte->getCarteType()][] = $objetCarte->getId();
+                    $codePartie->setPartieDefausse($tableauDeCartes);
+                    array_shift($pioche['tp']);
+
+                    $codePartie -> setPartiePioche($pioche);
+                    break;
+                case 5:
+                    $argentEnCours += 5000;
+                    break;
+            }
+
             ;
-            $objetJouerDeUser['de'] = $de;
+            $objetJouerDeUser->setDe($de);
+            if($anciennePosition > 24){
+                $argentEnCours +=2000;
+                $anciennePosition = 1;
+                $objetJouerDeUser->setBox($anciennePosition);
+            } else {
+                $objetJouerDeUser->setBox($anciennePosition);
+            }
+            $objetJouerDeUser->setArgent($argentEnCours);
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
-            $em->flush();*/
+            $em->flush();
+            $em->flush();
         }
         return $this->render('partie/partieEnCours.html.twig',
             [
@@ -248,29 +329,84 @@ class PartieController extends AbstractController
     }
 
     /**
-     * @Route("/rejoindre-partie", name="rejoindre")
+     * @Route("/update-partie/data/{codePartie}", name="update_game")
+     * @param Partie $codePartie
+     *
+     * @return Response
      */
-    public function rejoindrePartie(Request $request, JouerRepository $JouerRepository)
+    public function updateGame(Partie $codePartie)
     {
-        if($request->isMethod('POST'))
-        {
-            $codeRecupere = $request->request->get('codeRecupere');
-            $partieJoueurs = $JouerRepository->findBy
-            (
-                ['partie'=>$codeRecupere]
-            );
-            if (!empty($partieJoueurs))
+        $jouers = $codePartie->getJouers();
+        $monTour = false;
+        $positions = [];
+        foreach ($jouers as $jouer) {
+            if ($codePartie->getPartieQuiJoue() === $this->getUser()->getId())
             {
-                return $this->redirectToRoute('partie_new-partie',
-                    [
-                        'codePartie' => $codeRecupere
-                    ]
-                );
-            } else {
-                echo 'La code partie que tu as inséré n\'éxiste pas';
+                //quiJoue contient l'id du joueur en train de jouer.
+                $monTour = true;
+            }
+            if ($jouer->getUser() !== null) {
+                $positions[$jouer->getUser()->getId()]['username'] = $jouer->getUser()->getUsername();
+                $positions[$jouer->getUser()->getId()]['position'] = $jouer->getBox();
+                $positions[$jouer->getUser()->getId()]['argent'] = $jouer->getArgent();
+                $positions[$jouer->getUser()->getId()]['de'] = $jouer->getDe();
+                $positions[$jouer->getUser()->getId()]['classement'] = $jouer->getClassement();
             }
         }
-        return $this->render('partie/rejoindre-partie.html.twig');
+
+        $array = [
+            'joueurEnCours' => $codePartie->getPartieQuiJoue(),
+            'monTour' => $monTour,
+            'positionsJoueurs' => $positions,
+        ];
+
+        return $this->json($array);
     }
+
+
+    /**
+     * @Route("/update-partie/fin-tour/{codePartie}", name="fin_de_tour")
+     * @param Partie $codePartie
+     *
+     * @return Response
+     */
+    public function finTour(EntityManagerInterface $entityManager, Partie $codePartie)
+    {
+        $jouers = $codePartie->getJouers();
+        $positions = [];
+        foreach ($jouers as $jouer) {
+            if ($jouer->getUser()->getId() === $this->getUser()->getId())
+            {
+                $monOrdre = $jouer->getClassement();
+            }
+
+            if ($jouer->getUser() !== null) {
+                $positions[$jouer->getUser()->getId()]['username'] = $jouer->getUser()->getUsername();
+                $positions[$jouer->getUser()->getId()]['position'] = $jouer->getPosition();
+                $positions[$jouer->getUser()->getId()]['argent'] = $jouer->getArgent();
+                $positions[$jouer->getUser()->getId()]['de'] = $jouer->getDe();
+                $positions[$jouer->getUser()->getId()]['classement'] = $jouer->getClassement();
+            }
+            $ordre[$jouer->getClassement()] = $jouer->getUser()->getId();
+        }
+
+        if ($monOrdre >= count($ordre)) {
+            $joueurSuivant = $ordre[1];
+        } else {
+            $joueurSuivant = $ordre[$monOrdre+1];
+        }
+
+        $codePartie->setPartieQuiJoue($joueurSuivant);
+        $entityManager->persist($codePartie);
+        $entityManager->flush();//sauvegarde de l'entité partie
+        $array = [
+            'joueurEnCours' => $codePartie->getPartieQuiJoue(),
+            'monTour' => false,
+            'positionsJoueurs' => $positions
+        ];
+
+        return $this->json($array);
+    }
+
 
 }

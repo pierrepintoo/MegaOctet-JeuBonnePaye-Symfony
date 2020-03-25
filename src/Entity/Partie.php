@@ -124,14 +124,14 @@ class Partie
         return $this;
     }
 
-    public function getPartieDefausse(): ?string
+    public function getPartieDefausse(): ?array
     {
-        return $this->partie_defausse;
+        return json_decode($this->partie_defausse, true);
     }
 
-    public function setPartieDefausse(?string $partie_defausse): self
+    public function setPartieDefausse(?array $partie_defausse): self
     {
-        $this->partie_defausse = $partie_defausse;
+        $this->partie_defausse = json_encode($partie_defausse);
 
         return $this;
     }

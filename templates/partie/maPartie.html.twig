@@ -10,5 +10,9 @@
         {% for user in usersPartie %}
                 <p>{{ user.user.username }}</p>
         {% endfor %}
+        <p>En attente de six joueurs...</p>
+        <form method="post">
+                <button type="submit">Créer une partie à moins de six joueurs</button>
+        </form>
 {% endblock %}
 

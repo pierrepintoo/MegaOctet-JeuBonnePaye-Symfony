@@ -1,38 +1,92 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_clara.html.twig' %}
 
 {% block content %}
     <h1> Voici la partie en cours </h1>
+    <div id="plateau">
     <table class="tabInfosJoueur">
         <tbody>
-            <tr>
                 {% for user in partie.jouers %}
-                    <td><h2>{{ user.user.username }}</h2></td>
+                    <tr {% if user.user.id == app.user.id %}style="background-color: lightblue"{% endif %} >
+                        <td>{{ user.user.username }}</td>
+                        <td>Case actuelle : {{ user.box }}</td>
+                        <td>Argent : {{ user.argent }}</td>
+                        <td>Dernier lancé de dé : {{ user.de }}</td>
+                    </tr>
                 {% endfor %}
-            </tr>
-            <tr>
-            {% for user in partie.jouers %}
-                <td><p>argent : {{ user.argent }}</p></td>
-            {% endfor %}
-            </tr>
-            <tr>
-            {% for user in partie.jouers %}
-                <td><p>case actuelle : {{ user.box }}</p></td>
-            {% endfor %}
-            </tr>
-            <tr>
-                {% for user in partie.jouers %}
-                    <td><p>dernier lancer de dé : {{ user.de }}</p></td>
-                {% endfor %}
-            </tr>
-            </tr>
-            <tr>
-                {% for user in partie.jouers %}
-                    <td><p>son pion: {{ user.pion }}</p></td>
-                {% endfor %}
-            </tr>
         </tbody>
     </table>
-    <form method="post" action="" name="de">
+    <div class="col-md-10" id="my-game-play">
+        <div class="row" id="plateau-cases">
+            Plateau...
+        </div>
+        <div class="row" id="plateau-actions">
+            <div class="col-sm-3">
+                xx €
+            </div>
+            <div class="col-sm-3">
+                Mes cartes
+            </div>
+            <div class="col-sm-3">
+                Mes cartes transactions
+            </div>
+            <div class="col-sm-3">
+                <button class="btn btn-block btn-danger" id="fin-du-tour">Fin du tour</button>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-10" id="my-game-pause">
+        <div class="row">
+            Pause
+        </div>
+    </div>
+    </div>
+    <form method="get" action="" name="de">
         <button type="submit">Lancer le dé</button>
     </form>
+    {% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+    <script>
+
+        $(document).ready(function () {
+            setInterval(whoPlay, 3000)
+        });
+
+        function whoPlay () {
+            //cette fonction permet de scruter toutes les 3 secondes (a ajuster), l'état de la partie
+            // si ce n'est pas à moi de jouer, je mets le jeu en pause de mon coté, j'indique le joueur en train de jouer.
+            // si c'est à mon tour, je mets à jour le plateau, et j'enleve la pause
+            $.ajax({
+                url: "{{ path('partie_update_game', {codePartie: partie.id}) }}",
+                success: function (data) {
+                    console.log({{partie.id}});
+                    //il y a des données dans data, on pourrait mettre à jour en javascript la partie joueur éventuellement...
+                    if (data.monTour == true) {
+                        console.log('c est a moi')
+                        console.log(data.positionsJoueurs)
+                        $('#my-game-pause').hide()
+                        $('#my-game-play').show()
+                    } else {
+                        console.log('pas mon tour')
+                        $('#my-game-pause').show()
+                        $('#my-game-play').hide()
+                    }
+                }
+            })
+        }
+        $(document).on('click', '#fin-du-tour', function () {
+            console.log('fin tour')
+            $.ajax({
+                url: "{{ path('partie_fin_de_tour', {codePartie: partie.id}) }}",
+                success: function (data) {
+                    //il y a des données dans data, on pourrait mettre à jour en javascript la partie joueur éventuellement...
+                    $('#my-game-pause').show()
+                    $('#my-game-play').hide()
+                }
+            })
+        })
+    </script>
 {% endblock %}
+
+
+

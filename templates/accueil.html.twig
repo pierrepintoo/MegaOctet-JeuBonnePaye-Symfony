@@ -1,0 +1,25 @@
+{% extends 'base_clara.html.twig' %}
+{% block content %}
+<section id="accueil">
+    <img src="{{asset('img/logo_blanc.png')}}" alt="Logo blanc du jeu MegaOctet.">
+    <h1>Pour jouer tu dois t'inscrire ou te connecter !</h1>
+    <div>
+        {% if app.user.username is not defined %}
+            <div class="button">
+                <a href="{{ path('app_register') }}">S'inscrire</a>
+            </div>
+            <div class="button">
+                <a href="{{ path('app_login') }}">Se connecter</a>
+            </div>
+        {% else %}
+            <div class="button">
+                <a href="{{ path('partie_creer') }}">Créer ta partie !</a>
+            </div>
+            <div class="button">
+                <a href="{{ path('partie_rejoindre') }}">Rejoins une partie !</a>
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+{% endblock %}

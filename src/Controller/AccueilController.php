@@ -12,7 +12,7 @@ class AccueilController extends AbstractController
      */
     public function affichageNonConnecte()
     {
-        return $this->render('base.html.twig');
+        return $this->render('accueil.html.twig');
     }
 }
 ?>
