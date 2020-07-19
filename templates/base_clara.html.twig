@@ -1,0 +1,94 @@
+{% block head %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+        <title>{% block title %}Mega Octet - Accueil{% endblock %}</title>
+        <link rel="stylesheet" type="text/css" href="{{asset('css/bootstrap.css')}}">
+        <link href="https://fonts.googleapis.com/css2?family=Fjalla+One&family=Karla:ital,wght@0,400;0,700;1,400&family=Titan+One&display=swap" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="{{asset('css/style.css')}}">
+        <link rel="icon"
+              type="image/png"
+              href="{{asset('img/apple-icon-57x57.png')}}">
+    </head>
+{% endblock %}
+<body class="accueil">
+    {% block navbar %}
+     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{{ path('app_accueil') }}"><img src="{{ asset('img/logo.png') }}" style="width: 15vh;"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+                {% if is_granted('ROLE_ADMIN')%}
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ path('easyadmin') }}">Panel Admin</a>
+                </li>
+                {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('creation_partie') }}">Créer une partie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('partie_rejoindre') }}">Rejoindre une partie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('partie_historique') }}">Mes parties</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {% if app.user.username is not defined %}
+                            Salut Newbie
+                        {% else %}
+                            {{ app.user.username }}  <img class="pp_avatar"  src="{{asset('img/profile/'~app.user.avatar)}}" width="20" height="20">
+                        {% endif %}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            {% if app.user.username is not defined %}
+                                <a class="dropdown-item" href="{{ path('app_login') }}">Connecte toi hihi</a>
+                                <a class="dropdown-item" href="{{ path('app_register') }}">Ou inscris toi, pi poup</a>
+                            {% else %}
+                                <a class="dropdown-item" href="{{ path('joueur_profil') }}">Voir mon profil</a>
+                                <a class="dropdown-item" href="{{ path('app_logout') }}">Se déconnecter</a>
+                            {% endif %}
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    {% endblock %}
+    {% block content %}{% endblock %}
+    {% block footer %}
+        <!--FOOTER-->
+        <br>
+        <br>
+        <br>
+        <footer>
+            <div id="footer">
+                <div>
+                    <img src="{{asset('img/logo.png')}}" alt="Logo de MegaOctet">
+                    <a href="http://clarabelhassen.com/promo/">Site de communication et promotion du jeu</a>
+                    <a href="{{ path('regles') }}">Règles du jeu</a>
+                    <a href="{{ path('c_g_u') }}">Conditions Générales d'Utilisation</a>
+                </div>
+                <div>
+                    <h2>Contact</h2>
+                    <a href="https://www.facebook.com/MegaOctet-111314557109867/?__tn__=%2Cd%2CP-R&eid=ARA5kbgXd38FITIuLU1bnRlWRHHsMp7SbCzqQC7a3Pt2t8lSeP11pqI0CObrdWOw5Y8eOxp983SI3a_N">Facebook</a>
+                    <a href="https://www.instagram.com/megaoctet_lejeu/">Instagram</a>
+                    <a href="http://clarabelhassen.com/crea7e/">Agence CREA7E</a>
+                </div>
+            </div>
+            <div id="mentions">
+                <p> &copy; Tous droits réservés - Création de l'agence <a href="http://clarabelhassen.com/crea7e/">CREA7E</a> - 2020</p>
+            </div>
+        </footer>
+        <!--FOOTER-->
+    {% endblock %}
+    {% block javascripts %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="{{asset('js/bootstrap.min.js')}}" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    {% endblock %}
+</body>
+
+</html>

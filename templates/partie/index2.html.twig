@@ -1,0 +1,252 @@
+    <section id="z1 my-game-play">
+      <div id="aide">
+        <img src="{{ asset('img/info.svg') }}" alt="Picotgramme d'information">
+        <a href="#z2" style="color:#f9c4ff">Besoin d'aide ?</a>
+      </div>
+      <h1 class="form__title" style="margin-bottom: 3vh">Voici la partie en cours</h1>
+        <br>
+        <div class="infos_superieurs">
+            <h2 class="second_title__partie_rejoindre quiJoue"></h2>
+            <div class="block__cagnotte">
+                <p><em>Cagnotte</em></p>
+            </div>
+            <div class="block__nbTours">
+                <p class="block__cagnotte__text">Tours restants<em>{{jouer.nbToursRestants}}</em></p>
+            </div>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" style="background-color: white; color: #7748b9; border-radius: 10px;">
+                Voir le plateau
+            </button>
+
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Le plateau</h5>
+                            <a class="btn_rotation_plateau" href="#">Tourner le plateau</a>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p><img id="img_plateau" class="rotated-0" src="{{ asset('img/plateau_final.png') }}"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn_rotation_plateau" href="#">Tourner le plateau</a>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      <div class="align joueurs">
+
+        {% for user in joueurs %}
+        <div class="card_joueurs" {% if user.user.id == app.user.id %}style="background-color: #580075; color: #e2e2e1; font-weight: bold;"{% endif %}>
+            <div class="user-box"><img src="{{asset('img/profile/'~user.user.avatar)}}" alt="user avatar"></div>
+            <div class="infos_joueurs{{ user.user.id }}">
+            </div>
+        </div>
+        {% endfor %}
+
+      </div>
+        <br>
+        <br>
+        <div id="madiv"></div>
+        <div class="align cases">
+          {% for user in partie.jouers %}
+              {% if user.user.id == app.user.id %}
+                  {% for case in allCases %}
+                      <div class="case{{ case.id }}"></div>
+                  {% endfor %}
+              {% endif %}
+          {% endfor %}
+            <div class="case25"></div>
+            <div class="case26"></div>
+            <div class="case27"></div>
+      </div>
+      <!-- <div class="align pions">
+          {#{% for case in cases %}
+            {% if positions[case.BoxPosition] is defined %}
+                  {% for user in positions[case.BoxPosition] %}
+                      <p><span class="pion {{ user.pion }}">{{ user.user.username }}</span></p>
+                  {% endfor %}
+            {% endif %}
+          {% endfor %}#}
+
+      </div> -->
+        <br>
+        <br>
+        <div class="align chat_cartes_de">
+        <div class="card_infos" id="chat">
+          <img src="{{asset('img/chat.svg')}}" alt="Picotgramme du chat">
+          <div>
+            CHAT ICI
+          </div>
+        </div>
+        <div class="card_infos" id="tes_cartes">
+          <h2 class="namesJoueurs">Mes cartes</h2>
+          <div id="cartes">
+              <div class="row ligne_cartes">
+                          <div class="column maCarte" style="margin: 3vh">
+                          </div>
+              </div>
+          </div>
+        </div>
+        <div class="card_infos" id="de">
+            <h2 class="infos_de" id="lance_de_titre">Lance le dé !</h2>
+            <a class="infos_de" id="lance_de" href="#madiv"><img src="{{asset('img/de.png')}}" alt="Dé du jeu"></a>
+            <h2 class="infos_de" id="lance_de_titre_false">Tu as déjà lancé le dé.</h2>
+            <button class="infos_de" type="button" id="fin-du-tour" style="background: #7748b9!important; color: white!important;">Fin du tour</button>
+            <h2 class="infos_de" id="lance_de_titre_pas_mon_tour">Le dé n'est pas disponible, ce n'est pas ton tour.</h2>
+            <button class="infos_de" type="button" id="fin-du-tour2" style="background: #7748b9 !important; color: white !important; font-size:1.1em; ">Ne pas miser et faire une fin de tour</button>
+            <button class="infos_de" type="button" id="jouer-carte-tp" style="background: #7748b9 !important; color: white !important; font-size:1.1em; ">Acheter son TP</button>
+          </div>
+        </div>
+    </section>
+
+        <br><br><br>
+      <!--Page règles-->
+      <section id="z2" class="regle">
+        <div id="top_regle">
+          <!--TITRE-->
+          <div class="title">
+            <h1 style="color:#f9c4ff; margin: 3% 0;">Règles du jeu</h1>
+          </div>
+          <!--TITRE-->
+
+          <!--Petit texte-->
+          <p>
+              <em style="color:#f9c4ff;">
+                  Le but du jeu est d'être le joueur ayant accumulé le plus de MégaOctet à la fin du jeu. Lancez le dé et avancez votre pion du nombre de cases correspondant au chiffre obtenu. Suivez les instructions figurant sur la case sur laquelle vous vous arrêtez. Chaque heure de la journée, il y a quelque chose à faire. Seule la case Détente vous permet de vous reposer en attendant que ce soit à nouveau votre tour de jouer.
+              </em>
+          </p>
+          <!--Petit texte-->
+
+            <!--Cartes avec texte qui apparaît en dessous-->
+            <div class="row text-center boutique">
+              <p>
+                <button class="btnmateriel active" id="btn_1" data-onglet="1" ><img src="{{asset('img/cartes/CarteTP.png')}}" alt=""></button>
+                <button class="btnmateriel" id="btn_2" data-onglet="2" ><img src="{{asset('img/cartes/CarteNotif.png')}}" alt=""></button>
+                <button class="btnmateriel" id="btn_3" data-onglet="3" ><img src="{{asset('img/cartes/CarteAction.png')}}" alt=""></button>
+              </p>
+              <div class="div_onglets">
+                <div id="onglet_1" class="onglet">
+                  <p>
+                   Ces cartes vous permettent de récolter des MégaOctets. Vous pouvez en faire autant que vous voulez. Alors n’hésitez pas !Gardez chaque carte de ce type jusqu’à ce que vous arriviez sur une case RENDU et échangez-là alors pour sa valeur réelle (indiquée sur la carte) !Ajouter les Mo à votre compteur.Exemple :Le TP Logotype vous demande 400Mo pour être réalisé.Lorsque vous le rendez, vous récupérez 800Mo - bénéfice: 400Mo !Remarque : vous n’avez le droit de rendre qu’un TP à la fois. Après l’avoir rendu, remettez la carte sous le paquet.
+                 </p>
+                </div>
+
+                <div id="onglet_2" class="onglet">
+                  <p>
+                   Suivez les instructions de la carte que vous avez tirée, puis replacez-la sous le paquet.
+                  </p>
+                </div>
+
+                <div id="onglet_3" class="onglet">
+                 <p>
+                  Si vous avez de la chance, ces cartes peuvent vous rapporter beaucoup ! Dans d’autres cas elles ne peuvent être que purement informatives mais elles peuvent aussi vous faire perdre vos précieux MégaOctets. Attendez bien le RÉVEIL pour faire le point sur toutes leurs conséquences.
+                 </p>
+                </div>
+              </div>
+            </div>
+            <!--Cartes avec texte qui apparaît en dessous-->
+          </div><!--id="top_regle"-->
+
+          <!--CASES-->
+          <div id="bloc_cases">
+            <div class="pictures">
+
+        			<div class="container">
+          			<div class="content wow fadeInLeft">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{ asset('img/cases/case17h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web Enigm'Agency.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Action</h3>
+                		<p class="content-text">Si vous arrivez sur cette case, piochez la première carte de la pile Actions et suivez ses instructions.
+                    </p>
+              		</div>
+          			</div>
+        			</div>
+
+        			<div class="container">
+          			<div class="content wow fadeInDown">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{asset('img/cases/case6h.jpg')}}" alt="Capture d'écran de la page d'accueil du site web Asobi.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Départ</h3>
+                		<p class="content-text">Tu reçois et paies tes dûs journalier de Mo lorsque tu arrives sur cette case, et tu repars pour une nouvelle journée.
+                    </p>
+              		</div>
+          			</div>
+        			</div>
+
+        			<div class="container">
+          			<div class="content wow fadeInRight">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{ asset('img/cases/case12h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web Custom'Air.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Détente</h3>
+                		<p class="content-text">Cette case te permet de ne pas perdre de Mo ni d'en gagner, elle porte bien son nom puisque tu n'as rien d'autre à faire que te détendre.
+                    </p>
+              		</div>
+          			</div>
+        			</div>
+
+        			<div class="container">
+          			<div class="content wow fadeInLeft">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{asset('img/cases/case23h.jpg')}}" alt="Capture d'écran de la page d'accueil du site web Monuments de Troyes.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Loto</h3>
+                		<p class="content-text">Cette case peut te permettre de gagner le gros lot ! Mise 100Mo et tu pourras recevoir jusqu'à 800Mo !</p>
+              		</div>
+          			</div>
+        			</div>
+
+
+        			<div class="container">
+          			<div class="content wow fadeInDown">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{ asset('img/cases/case14h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Notif</h3>
+                		<p class="content-text">Si vous arrivez sur une case NOTIF, piochez le nombre de cartes NOTIF qui y est indiqué et gardez-les jusqu’à ce que vous arriviez sur la case RÉVEIL (pour en savoir plus, voir la rubrique Les Cartes).</p>
+              		</div>
+          			</div>
+        			</div>
+
+              <div class="container">
+          			<div class="content wow fadeInDown">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{ asset('img/cases/case13h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case Rendu</h3>
+                		<p class="content-text">Si tu as acquis un TP, c'est le moment pour le rendre et récupérer ton dû !</p>
+              		</div>
+          			</div>
+        			</div>
+
+              <div class="container">
+          			<div class="content wow fadeInDown">
+              		<div class="content-overlay"></div>
+              			<img class="content-image" src="{{ asset('img/cases/case15h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+              		<div class="content-details fadeIn-bottom">
+                		<h3 class="content-title">Case TP</h3>
+                		<p class="content-text">En tombant sur cette case, tu dois piocher une carte TP, les explications sur cette carte sont au dessus !</p>
+              		</div>
+          			</div>
+        			</div>
+
+        		</div><!--class="pictures"-->
+          </div><!--id="bloc_cases"-->
+          <!--CASES-->
+      </section>
+      <!--Page règles-->
+    <!--Script pour les cartes avec le texte qui apparait au clic-->
+
+  </body>
+</html>

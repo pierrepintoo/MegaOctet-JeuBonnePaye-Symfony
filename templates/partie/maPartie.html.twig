@@ -1,18 +1,77 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_clara.html.twig' %}
 
-{% block title %}
-
-{% endblock %}
+{% block title %}Salle d'attente MegaOctet{% endblock %}
 
 {% block content %}
-        <h1>Heyo, ton code est {{ codePartie }}, partage le avec tes potes si tu veux jouer avec eux !</h1>
-        <h2>Voici les joueurs connectés à la partie : </h2>
-        {% for user in usersPartie %}
-                <p>{{ user.user.username }}</p>
-        {% endfor %}
-        <p>En attente de six joueurs...</p>
-        <form method="post">
-                <button type="submit">Créer une partie à moins de six joueurs</button>
-        </form>
+        <h1 class="form__title">Heyo, ton code est <span style="text-decoration: underline;">{{ codeRejoindre }}</span>, partage le avec tes potes si tu veux jouer avec eux !</h1>
+    <h3 class="title_nbTours"><span>Partie en {{ codePartie.nbTours }} tours</span></h3>
+        <br>
+        <br>
+        <h2 class="second_title__partie_rejoindre">Joueurs connectés : </h2>
+        <p class="quiCommence"></p>
+                <section class="page_conect">
+                        <div class="conect">
+                                <div class="form">
+                                    <div id="joueursJoined0"></div>
+                                    <div id="joueursJoined1"></div>
+                                    <div id="joueursJoined2"></div>
+                                    <div id="joueursJoined3"></div>
+                                    <div id="joueursJoined4"></div>
+                                    <div id="joueursJoined5"></div>
+                                        <div class="form-group">
+                                                <p>En attente de six joueurs...</p>
+                                        </div>
+                                </div>
+                        </div>
+                        <form method="post" style="margin: auto;display: flex;flex-direction: column;">
+                            <button class="button_conect btn" type="submit">Créer la partie</button>
+                            <p><em>Tous les joueurs seront automatiquement redirigés vers la partie en cliquant sur ce bouton</em></p>
+                        </form>
+                </section>
 {% endblock %}
+    {% block javascripts %}
+            {{ parent() }}
+            <script>
+                    $(document).ready(function () {
+                            setInterval(whoPlay, 3000)
+                    });
+                    function whoPlay ()
+                    {
+                        $.ajax
+                        (
+                            {
+                                url: "{{ path('partie_update_new_game', {codePartie: codePartie.id}) }}",
+                                success: function (data) {
+                                    for(i=0; i< data.tabJoueursId.length ; i++)
+                                    {
+                                        $('#joueursJoined' + i).html
+                                        (
+                                            '<p>' + data.positionsJoueurs[data.tabJoueursId[i]]['username'] + '</p>'
+                                        )
+
+                                    }
+                                    console.log(data.tabJoueursId.length)
+                                    if(data.tabJoueursId.length >= 6){
+                                        document.location.href = "{{path ('partie_app_partie', {codePartie: code})}}"
+                                    }
+                                    if(data.etatPartie == "EC"){
+                                        document.location.href = "{{path ('partie_app_partie', {codePartie: code})}}"
+                                    }
+                                    $('.quiCommence').html('<p style="color:white; margin-left: 20vw;"><em>' + data.usernameQuiJoue + ' jouera en premier car c\'est lui qui a crée la partie </em></p>')
+
+                                }
+                            }
+                        )
+                        $.ajax
+                        (
+                            {
+                                url: "{{ path('partie_new-partie', {codePartie: codePartie.id}) }}",
+                                success: function (data) {
+
+                                }
+                            }
+                        )
+                    }
+            </script>
+    {% endblock %}
 

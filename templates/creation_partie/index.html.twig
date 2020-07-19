@@ -1,0 +1,20 @@
+{% extends 'base_clara.html.twig' %}
+
+{% block title %}Crée ta partie de Mega Octet!{% endblock %}
+
+{% block content %}
+<section class="page_conect">
+    <div class="conect">
+        <div class="form creation_partie">
+            {{ form_start(NombreDeToursType) }}
+            <h1 class="form__title" style="margin:auto;">Création d'une partie</h1>
+            {{ form_row(NombreDeToursType.nbTours) }}
+        </div>
+        <button class="button_conect btn">Crée ta partie</button>
+        {{ form_end(NombreDeToursType) }}
+        <div class="form">
+            <p><em>Info : minimum un tour et maximum dix tour</em></p>
+        </div>
+    </div>
+</section>
+{% endblock %}

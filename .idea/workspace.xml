@@ -2,15 +2,48 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21f49150-b17c-41db-bae0-48c19d50ffe4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/templates/accueil.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/symfony2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Controller/JoueurController.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/FileUploader.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/joueur/index.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/partie/_affiche_plateau.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/partie/dejaCo.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/registration/confirmation.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jeu.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jeu.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/AccueilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/AccueilController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/BoxController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/BoxController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/CarteController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/CarteController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/PartieController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/PartieController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/RegistrationController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/RegistrationController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Box.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Box.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Carte.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Carte.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Jouer.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Jouer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/Partie.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Partie.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/RegistrationFormType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/UserType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/UserType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/JouerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/JouerRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/accueil.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/accueil.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/creerpartie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partie/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/maPartie.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/partie/partieEnCours.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/partieEnCours.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/partie/rejoindre-partie.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/partie/rejoindre-partie.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/registration/register.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/registration/register.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/security/login.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/security/login.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/edit.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/edit.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/new.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/new.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/user/show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/user/show.html.twig" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -138,6 +171,12 @@
       <path value="$PROJECT_DIR$/vendor/symfony/expression-language" />
       <path value="$PROJECT_DIR$/vendor/symfony/translation" />
       <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
+      <path value="$PROJECT_DIR$/vendor/swiftmailer/swiftmailer" />
+      <path value="$PROJECT_DIR$/vendor/symfony/swiftmailer-bundle" />
+      <path value="$PROJECT_DIR$/vendor/egulias/email-validator" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-grapheme" />
+      <path value="$PROJECT_DIR$/vendor/symfony/string" />
+      <path value="$PROJECT_DIR$/vendor/symfony/polyfill-intl-normalizer" />
     </include_path>
   </component>
   <component name="ProjectId" id="1XoF7UDQjH2FvuVwmKAgwV1LB2N" />
@@ -153,8 +192,13 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="settings.editor.selected.configurable" value="web-ide.project.structure" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public/img/profile" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
@@ -201,7 +245,29 @@
       <workItem from="1584795616190" duration="3698000" />
       <workItem from="1584896947262" duration="697000" />
       <workItem from="1584912122902" duration="26892000" />
-      <workItem from="1585146976795" duration="6179000" />
+      <workItem from="1585146976795" duration="8526000" />
+      <workItem from="1585160962203" duration="4510000" />
+      <workItem from="1585400232555" duration="7848000" />
+      <workItem from="1585575145302" duration="24140000" />
+      <workItem from="1585744155430" duration="11519000" />
+      <workItem from="1585917645519" duration="5587000" />
+      <workItem from="1586004948514" duration="10445000" />
+      <workItem from="1586107297050" duration="820000" />
+      <workItem from="1586159294851" duration="55497000" />
+      <workItem from="1586703445179" duration="17672000" />
+      <workItem from="1587117714408" duration="10051000" />
+      <workItem from="1587327283587" duration="8098000" />
+      <workItem from="1587452204709" duration="166000" />
+      <workItem from="1588016367282" duration="5447000" />
+      <workItem from="1588145985185" duration="3501000" />
+      <workItem from="1588180098111" duration="24315000" />
+      <workItem from="1588273033168" duration="10181000" />
+      <workItem from="1588322907737" duration="13284000" />
+      <workItem from="1588350217969" duration="8091000" />
+      <workItem from="1588593173981" duration="45000" />
+      <workItem from="1590932752371" duration="378000" />
+      <workItem from="1591036619947" duration="431000" />
+      <workItem from="1592392437764" duration="573000" />
     </task>
     <task id="LOCAL-00001" summary="Création d'une Partie/ Création d'un code de Partie / Si pas connecté, nav bar sans username / nouvelle beauté de la page d'accueil du jeu">
       <created>1584554059766</created>
@@ -238,7 +304,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584969202742</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Rafraichissement auto des parties (pas fini)">
+      <created>1585154079648</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585154079648</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,6 +336,18 @@
     <MESSAGE value="Affichage des joueurs qui ont le même code + formulaire de de création de partie" />
     <MESSAGE value="Test avec l'id de la partie et plus avec le code aléatoire" />
     <MESSAGE value="création de partie multiple terminé + affichage infos parties" />
-    <option name="LAST_COMMIT_MESSAGE" value="création de partie multiple terminé + affichage infos parties" />
+    <MESSAGE value="Rafraichissement auto des parties (pas fini)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rafraichissement auto des parties (pas fini)" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/templates/partie/maPartie.html.twig</url>
+          <line>10</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

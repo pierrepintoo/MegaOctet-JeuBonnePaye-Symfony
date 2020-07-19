@@ -1,0 +1,219 @@
+{% extends 'base_clara.html.twig' %}
+
+{% block title %}Profil MegaOctet{% endblock %}
+
+
+{% block content  %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="profile-card-4 z-depth-3">
+                    <div class="card">
+                        <div class="card-body text-center bg-primary rounded-top">
+                            <div class="user-box">
+                                <img src="{{asset('img/profile/'~app.user.avatar)}}" alt="user avatar">
+                            </div>
+                            <h5 class="mb-1 text-white">{{ app.user.username }}</h5>
+                            <h6 class="text-light">{{ app.user.bio }}</h6>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group shadow-none">
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-phone-square"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>
+                                            {% if app.user.tel is null %}
+                                                0123456789
+                                            {% else %}
+                                                {{ app.user.tel }}
+                                            {% endif %}
+                                        </span>
+                                        <small>Téléphone</small>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>{{app.user.mail}}</span>
+                                        <small>Adresse e-mail</small>
+                                    </div>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="list-icon">
+                                        <i class="fa fa-globe"></i>
+                                    </div>
+                                    <div class="list-details">
+                                        <span>
+                                            {% if app.user.tel is null %}
+                                                Newbie
+                                            {% else %}
+                                                {{ app.user.grade }}
+                                            {% endif %}
+                                        </span>
+                                        <small>Grade</small>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="row text-center mt-4">
+                                <div class="col p-2">
+                                    <h4 class="mb-1 line-height-5">{{app.user.argentTotal}}</h4>
+                                    <small class="mb-0 font-weight-bold">MegaOtets Totaux</small>
+                                </div>
+                                <div class="col p-2">
+                                    <h4 class="mb-1 line-height-5">{{app.user.nbPartie}}</h4>
+                                    <small class="mb-0 font-weight-bold">Nombre de parties</small>
+                                </div>
+                                <div class="col p-2">
+                                    <h4 class="mb-1 line-height-5">{{ app.user.victoires }}</h4>
+                                    <small class="mb-0 font-weight-bold">Victoires</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="javascript:void()" class="btn-social btn-facebook waves-effect waves-light m-1"><i class="fa fa-facebook"></i></a>
+                            <a href="javascript:void()" class="btn-social btn-google-plus waves-effect waves-light m-1"><i class="fa fa-google-plus"></i></a>
+                            <a href="javascript:void()" class="list-inline-item btn-social btn-behance waves-effect waves-light"><i class="fa fa-behance"></i></a>
+                            <a href="javascript:void()" class="list-inline-item btn-social btn-dribbble waves-effect waves-light"><i class="fa fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="card z-depth-3">
+                    <div class="card-body">
+                        <ul class="nav nav-pills nav-pills-primary nav-justified">
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#profile" data-toggle="pill" class="nav-link active show"><i class="icon-user"></i> <span class="hidden-xs">Profil</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#messages" data-toggle="pill" class="nav-link"><i class="icon-envelope-open"></i> <span class="hidden-xs">Messages</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:void();" data-target="#edit" data-toggle="pill" class="nav-link"><i class="icon-note"></i> <span class="hidden-xs">Modifier</span></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content p-3">
+                            <div class="tab-pane active show" id="profile">
+                                <h5 class="mb-3">Mon profil</h5>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <h6>À propos</h6>
+                                        <p>
+                                            {{app.user.bio}}
+                                        </p>
+                                        <h6>Passions</h6>
+                                        <p>
+                                            {% if app.user.passions is null %}
+                                                Le newbie n'a pas encore de passion, mais MegaOctet va en devenir une.
+                                            {% else %}
+                                                {{ app.user.passions }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <h5 class="mt-2 mb-3"><span class="fa fa-clock-o ion-clock float-right"></span> Activité récente</h5>
+                                        <table class="table table-hover table-striped">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <strong>{{app.user.username}}</strong> a gagné une partie hier !
+                                                </td>
+                                            </tr>
+                                            {%  if app.user.passions is defined  %}
+                                            <tr>
+                                                <td>
+                                                    <strong>{{app.user.username}}</strong>  a indiqué qu'il était fan de {{ app.user.passions }} !
+                                                </td>
+                                            </tr>
+                                            {% endif %}
+                                            <tr>
+                                                <td>
+                                                    <strong>{{app.user.username}}</strong> a rejoint le club !
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--/row-->
+                            </div>
+                            <div class="tab-pane" id="messages">
+                                <div class="alert alert-info alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert">×</button>
+                                    <div class="alert-icon">
+                                        <i class="icon-info"></i>
+                                    </div>
+                                    <div class="alert-message">
+                                        <span><strong>Info!</strong> Lorem Ipsum is simply dummy text.</span>
+                                    </div>
+                                </div>
+                                <table class="table table-hover table-striped">
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <span class="float-right font-weight-bold">À l'instant</span> Boite de messagerie vide
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane" id="edit">
+                                <form>
+                                    <p><em style="color:#2A2A2A;">Pas encore fonctionnel</em></p>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Pseudo</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="text" value="{{app.user.username}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Email</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="email" value="{{app.user.mail}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Changer son avatar</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="file">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Téléphone</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="tel" value="{% if app.user.tel is null %} 0123456789 {% else %}{{ app.user.tel }}{% endif %}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Mot de passe</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="password" value="11111122333">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label">Confirmer son mot de passe</label>
+                                        <div class="col-lg-9">
+                                            <input class="form-control" type="password" value="11111122333">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-lg-3 col-form-label form-control-label"></label>
+                                        <div class="col-lg-9">
+                                            <input type="reset" class="btn btn-secondary" value="Annuler">
+                                            <input type="button" class="btn btn-primary" value="Sauvegarder">
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}

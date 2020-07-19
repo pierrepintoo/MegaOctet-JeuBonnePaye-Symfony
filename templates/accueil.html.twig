@@ -2,7 +2,11 @@
 {% block content %}
 <section id="accueil">
     <img src="{{asset('img/logo_blanc.png')}}" alt="Logo blanc du jeu MegaOctet.">
-    <h1>Pour jouer tu dois t'inscrire ou te connecter !</h1>
+    {% if app.user.username is not defined %}
+    <h1 class="title__accueil">Pour jouer tu dois t'inscrire ou te connecter !</h1>
+    {% else %}
+    <h1 class="title__accueil">Crée une partie, ou alors rejoins-en une !</h1>
+    {% endif %}
     <div>
         {% if app.user.username is not defined %}
             <div class="button">
@@ -13,7 +17,7 @@
             </div>
         {% else %}
             <div class="button">
-                <a href="{{ path('partie_creer') }}">Créer ta partie !</a>
+                <a href="{{ path('partie_creer') }}">Crée ta partie !</a>
             </div>
             <div class="button">
                 <a href="{{ path('partie_rejoindre') }}">Rejoins une partie !</a>

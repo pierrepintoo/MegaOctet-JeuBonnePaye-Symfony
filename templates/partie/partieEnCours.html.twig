@@ -1,91 +1,480 @@
 {% extends 'base_clara.html.twig' %}
-
+{% block title %} Partie {{ partie.id }} {% endblock %}
 {% block content %}
-    <h1> Voici la partie en cours </h1>
-    <div id="plateau">
-    <table class="tabInfosJoueur">
-        <tbody>
-                {% for user in partie.jouers %}
-                    <tr {% if user.user.id == app.user.id %}style="background-color: lightblue"{% endif %} >
-                        <td>{{ user.user.username }}</td>
-                        <td>Case actuelle : {{ user.box }}</td>
-                        <td>Argent : {{ user.argent }}</td>
-                        <td>Dernier lancé de dé : {{ user.de }}</td>
-                    </tr>
-                {% endfor %}
-        </tbody>
-    </table>
-    <div class="col-md-10" id="my-game-play">
-        <div class="row" id="plateau-cases">
-            Plateau...
-        </div>
-        <div class="row" id="plateau-actions">
-            <div class="col-sm-3">
-                xx €
+            <div id="#plateau">
+                {{ render(path('partie_affiche_plateau', {codePartie: partie.id})) }}
             </div>
-            <div class="col-sm-3">
-                Mes cartes
-            </div>
-            <div class="col-sm-3">
-                Mes cartes transactions
-            </div>
-            <div class="col-sm-3">
-                <button class="btn btn-block btn-danger" id="fin-du-tour">Fin du tour</button>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-10" id="my-game-pause">
-        <div class="row">
-            Pause
-        </div>
-    </div>
-    </div>
-    <form method="get" action="" name="de">
-        <button type="submit">Lancer le dé</button>
-    </form>
     {% endblock %}
     {% block javascripts %}
         {{ parent() }}
     <script>
-
-        $(document).ready(function () {
-            setInterval(whoPlay, 3000)
-        });
-
-        function whoPlay () {
-            //cette fonction permet de scruter toutes les 3 secondes (a ajuster), l'état de la partie
-            // si ce n'est pas à moi de jouer, je mets le jeu en pause de mon coté, j'indique le joueur en train de jouer.
-            // si c'est à mon tour, je mets à jour le plateau, et j'enleve la pause
+        // Lançage de dés + fin du tour
+        $(document).on('click', '#lance_de', function () {
             $.ajax({
-                url: "{{ path('partie_update_game', {codePartie: partie.id}) }}",
+                url: "{{ path('partie_lance_de', {codePartie: partie.id}) }}",
                 success: function (data) {
-                    console.log({{partie.id}});
-                    //il y a des données dans data, on pourrait mettre à jour en javascript la partie joueur éventuellement...
-                    if (data.monTour == true) {
-                        console.log('c est a moi')
-                        console.log(data.positionsJoueurs)
-                        $('#my-game-pause').hide()
-                        $('#my-game-play').show()
-                    } else {
-                        console.log('pas mon tour')
-                        $('#my-game-pause').show()
-                        $('#my-game-play').hide()
+                    if(data.de == 1)
+                    {
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D1.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+                        /*setTimeout(()=>{
+                            alert('bien joué')
+                        }, 8000)*/
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
+                    } else if(data.de == 2) {
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D2.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
+                    } else if(data.de == 3) {
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D3.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
+                    } else if(data.de == 4) {
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D4.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
+                    } else if(data.de == 5){
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D5.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
+                    } else if (data.de == 6){
+                        let mavideo = ' <video id="mavideo" autoplay>'+
+                            '<source src="{{asset('videos/D6.mp4')}}" type="video/mp4"> ' +
+                            '</video>'
+
+                        $(mavideo).appendTo('#madiv')
+                        setTimeout(function(){
+                            $('#mavideo').remove()
+                        },3500)
+
+                        //console.log('clique sur le lien')
+                        $('#madiv').fadeIn();
+                        $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                        setTimeout(function(){
+                            $('#madiv').fadeOut()
+                        },3500)
                     }
                 }
             })
+
+        })
+        $(document).ready(function () {
+            setInterval(whoPlay, 1000)
+            $('#fin-du-tour2').hide()
+        });
+        $('#madiv').fadeOut()
+        var jouercarte;
+        function whoPlay ()
+        {
+
+            $.ajax
+            (
+                {
+                    url: "{{ path('partie_update_game', {codePartie: partie.id}) }}",
+                    success: function (data)
+                    {
+                        // Quand la partie se termine
+                        if(data.etatPartie == "T"){
+                            document.location.href = "{{path ('fin_partie', {codePartie: partie.id})}}"
+                        }
+                        //Données des joueurs en temps réel
+                        for(i=0; i<data.tabJoueursId.length; i++)
+                        {
+                            $('.infos_joueurs' + data.tabJoueursId[i]).html
+                            (
+                            '<h2 class="namesJoueurs">' + data.positionsJoueurs[data.tabJoueursId[i]]['username'] + '</h2>' +
+                            '<p> Case actuelle : ' + data.positionsJoueurs[data.tabJoueursId[i]]['position'] + '</p>' +
+                            '<p>Dernier lancé de dé ' + data.positionsJoueurs[data.tabJoueursId[i]]['de'] + '</p>' +
+                            '<h3 style="font-weight: 800;">Mo : ' + data.positionsJoueurs[data.tabJoueursId[i]]['argent'] + '</h3>'
+                            )
+
+                        }
+                        //Cartes en temps réel
+                        $('.uneCarte').remove()
+                        $('.case1').show();
+                        $('.case2').show();
+                        $('.case3').show();
+                        for(i=0; i<data.cartes.length; i++)
+                        {
+                            $('.maCarte').append
+                            (
+                                '<img class="uneCarte" data-toggle="modal" data-target=".bs-example-modal-lg" src="{{ asset('img/cartes/')}}' + data.cartes[i]['image_recto'] + '">'
+                            )
+
+                        }
+
+                        //Cases en temps réel
+                        $('.uneCase').remove()
+
+                        for(i=0; i<=3; i++)
+                        {
+                            $('.case' + data.casesId[i]).html
+                            (
+                                '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[i] + '">'
+                            )
+                            if(data.casesId[0] == 22)
+                            {
+                                $('.case1').hide();
+                                $('.case25').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[3] + '">'
+                                )
+                            }
+                            if(data.casesId[0] == 23)
+                            {
+                                $('.case1').hide();
+                                $('.case2').hide();
+                                $('.case25').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[2] + '">'
+                                )
+                                $('.case26').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[3] + '">'
+                                )
+                            }
+                            if(data.casesId[0] == 24)
+                            {
+                                $('.case1').hide();
+                                $('.case2').hide();
+                                $('.case3').hide();
+                                $('.case25').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[1] + '">'
+                                )
+                                $('.case26').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[2] + '">'
+                                )
+                                $('.case27').html
+                                (
+                                    '<img class="uneCase" style="height:25vW;" src="{{ asset('img/cases/')}}' + data.casesImage[3] + '">'
+                                )
+                            }
+                        }
+
+
+                        $('.quiJoue').html(data.usernameQuiJoue + ' est en train de jouer...')
+                        $('.block__cagnotte').html('<p class="block__cagnotte__text">Cagnotte<span style="margin:auto;">'+data.cagnotte + '</span></p>')
+                        $('.block__cagnotte').html('<p class="block__cagnotte__text">Cagnotte<span style="margin:auto;">'+data.cagnotte + '</span></p>')
+
+                        //$('#case_actuelle').html(data.positions[])
+                        //$('#lancer-de-loterie').hide();
+                        $('#jouer-carte-tp').hide();
+                        $('#fin-du-tour-loterie').hide();
+                        $('#fin-du-tour2').hide();
+                        $('#fin-du-tour').hide();
+                        $('#lance_de').hide();
+                        $('#lance_de_titre').hide();
+                        $('#lance_de_titre_pas_mon_tour').show();
+                        $('#lance_de_titre_false').hide();
+
+                        //$('#plateau').empty().load("{# {{ path('partie_affiche_plateau',{codePartie:partie.id}) }} #}", function (response, status, xhr) {
+                           // $('#my-game-pause').hide()
+                            //$('#my-game-play').show()
+                        //console.log(data.monTour)
+                        if (data.monTour == true)
+                        {
+                            //$('#my-game-play').hide()
+                            //$('#my-game-play').show()
+                            $('#lance_de_titre_pas_mon_tour').hide();
+                            $('#lance_de_titre').show();
+                            $('#lance_de').show();
+
+                            if(data.deLance ==  true)
+                            {
+
+                                    /*let mavideo = ' <img id="mavideo"  '+
+                                        'src="{{asset('videos/transition.gif')}}" type="video/gif"> '
+
+                                    $(mavideo).appendTo('#madiv')
+                                    setTimeout(function(){
+                                        $('#mavideo').remove()
+                                    },3500)
+
+                                    //console.log('clique sur le lien')
+                                    $('#madiv').fadeIn();
+                                    $('#madiv').css({"background-color":"rgba(0,0,0,0.8) "});
+                                    setTimeout(function(){
+                                        $('#madiv').fadeOut()
+                                    },3000)*/
+
+                                console.log('je suis sur la case '+data.positionsJoueurs[data.idJoueur]['position'])
+                                var pos = data.positionsJoueurs[data.idJoueur]['position']
+
+                                if(pos == 10 || pos == 15 || pos ==  20)
+                                {
+                                    console.log('caca')
+                                    $('#fin-du-tour').hide()
+                                    $('#lance_de_titre').hide()
+                                    $('#lance_de').hide()
+                                    $('#fin-du-tour2').show()
+                                    $('#jouer-carte-tp').show()
+                                    if (data.positionsJoueurs[data.idJoueur]['jaiPioche'] == true)
+                                    {
+                                        //console.log(data.positionsJoueurs[data.idJoueur]['cartes'][0]['nom'])
+                                        $('#fin-du-tour2').hide()
+                                        $('#jouer-carte-tp').hide()
+                                        $('#fin-du-tour').show()
+                                    }
+                                } else
+                                {
+                                    $('#lance_de_titre').hide()
+                                    $('#lance_de').hide()
+                                    $('#lance_de_titre_false').show()
+                                    $('#fin-du-tour').show()
+                                }
+                                /*if (data.positionsJoueurs[data.idJoueur]['cartes'][0]['type'] == 'tp')
+                                {
+                                    $('#fin-du-tour').hide();
+                                    $('#fin-du-tour2').show();
+                                    $('#jouer-carte-tp').show();
+
+                                }*/
+                                /*if (data.positionsJoueurs[data.idJoueur]['jaiPioche'] == true)
+                                {
+                                    if (data.positionsJoueurs[data.idJoueur]['cartes'][0]['type'] == 'tp'){
+                                        console.log('nouvelle carte tp obtenue')
+                                        $('#fin-du-tour').hide();
+                                        $('#fin-du-tour2').show();
+                                        $('#jouer-carte-tp').show()
+                                    }
+                                }*/
+
+                                /*if(data.positionsJoueurs[data.idJoueur]['position'] == 11 ){
+                                    //console.log('bien joué, tu récuère l argent que tu as misé !')
+                                    //console.log('ai-je pioché ? '+ data.positionsJoueurs[data.idJoueur]['jaiPioche'])
+
+                                }*/
+                                /*if(data.positionsJoueurs[data.idJoueur]['position'] == 23 ){
+                                    $('#fin-du-tour').hide();
+                                    $('#fin-du-tour-loterie').show();
+                                    console.log('Tu peux miser dans la loterie ou alors faire simplement une fin de tour')
+                                }*/
+                            }
+                        } else {
+
+                        }
+                    }
+                }
+            )
+
+                            /*if(data.quiMiseLoterie == true) {
+                                $('#form__miserLoterie').css('display', 'inline');
+
+                            }
+                            console.log('Mon tour de loterie' + data.monTourLoterie)
+                            if(data.monTourLoterie == true){
+                                $('#lancer-de-loterie').show();
+                            }*/
         }
-        $(document).on('click', '#fin-du-tour', function () {
-            console.log('fin tour')
+
+
+        // Fonction pour éviter de réécrire la fin de tour
+        const findetour = () => {
             $.ajax({
-                url: "{{ path('partie_fin_de_tour', {codePartie: partie.id}) }}",
+                url: "{{ absolute_url(path('partie_fin_de_tour', {codePartie: partie.id}) ) }}",
                 success: function (data) {
                     //il y a des données dans data, on pourrait mettre à jour en javascript la partie joueur éventuellement...
                     $('#my-game-pause').show()
                     $('#my-game-play').hide()
+                    $('#newCarte').hide()
+
+                }
+            })
+        }
+        // Fonction pour jouer une carte
+        $(document).on('click', '#jouer-carte-tp', function () {
+            $.ajax({
+                url: "{{ path('partie_miser_carte_tp', {codePartie: partie.id}) }}",
+                success: function (data) {
+                    findetour();
                 }
             })
         })
+
+        //fonction du bouton de fin du tour
+        $(document).on('click', '#fin-du-tour', function () {
+            console.log('fin tour');
+            findetour()
+        })
+        $(document).on('click', '#fin-du-tour2', function () {
+            console.log('fin tour');
+            findetour()
+        })
+
+
+        function rotationPlateau() {
+            var img = document.getElementById("img_plateau");
+            var c =  img.className.split('-');            // c[0] contient 'rotated' et c[1] le numéro de la class
+            c =  c[0] +'-' +((parseInt( c[1]) +1 )% 4)    // on incrémente et on tourne à 8
+            img.setAttribute("class", c);
+        }
+        $(document).on('click', '.btn_rotation_plateau', function(){
+            rotationPlateau()
+            console.log('le clique a marché')
+        })
+
+
     </script>
+        <!-- Script pour la lançage de dé-->
+        <script>
+
+        </script>
+    <script>
+            function hideAllElementByClassNam(clName){
+                var onglets = document.getElementsByClassName("onglet");
+                //on masque tous les onglets
+                for (var i = 0; i < onglets.length; i++) {
+                    onglets[i].style.display = 'none';
+                }
+            }
+            function ShowElementById(idElm){
+                document.getElementById(idElm).style.display = "inline-block";
+            }
+            function addClassActiveElm(idElm){
+                var cl_btn_active = document.getElementsByClassName("btnmateriel active");
+                //on retire la class Active de tous les onglets
+                for (var i = 0; i < cl_btn_active.length; i++) {
+                    removeClass(cl_btn_active[i],"active") ;
+                }
+                //on met la class active au bouton cliqué
+                document.getElementById(idElm).className = "btnmateriel active";
+            }
+            function removeClass(e,c) {
+                e.className = e.className.replace( new RegExp('(?:^|\\s)'+c+'(?!\\S)') ,'');
+            }
+            var DisplayHideOnglets = function() {
+                //on masque tous les onglets
+                hideAllElementByClassNam('onglet');
+                //numero de l'onglet à afficher
+                var NumOnglet = this.getAttribute("data-onglet");
+                //on affiche l'onglet
+                if(typeof(NumOnglet) !="undefined" && NumOnglet!=null){
+                    ShowElementById("onglet_"+NumOnglet);
+                    addClassActiveElm("btn_"+NumOnglet);
+                }
+            };
+            function initListener(){
+                //on ajoute le listener
+                var cl_btnmateriel = document.getElementsByClassName("btnmateriel");
+                for (var i = 0; i < cl_btnmateriel.length; i++) {
+                    cl_btnmateriel[i].addEventListener('click', DisplayHideOnglets, false);
+                }
+            }
+            //Initialisation
+            initListener();
+            //par défaut.. on affiche le premier onglet
+
+            // Script pour le popup des cartes
+
+   </script>
+        <!--Script pour les cartes avec le texte qui apparait au clic-->
+
+        <script>
+            // Open the Modal
+            function openModal() {
+                document.getElementById("myModal").style.display = "block";
+            }
+
+            // Close the Modal
+            function closeModal() {
+                document.getElementById("myModal").style.display = "none";
+            }
+
+            var slideIndex = 1;
+            showSlides(slideIndex);
+
+            // Next/previous controls
+            function plusSlides(n) {
+                showSlides(slideIndex += n);
+            }
+
+            // Thumbnail image controls
+            function currentSlide(n) {
+                showSlides(slideIndex = n);
+            }
+
+            function showSlides(n) {
+                var i;
+                var slides = document.getElementsByClassName("mySlides");
+                var dots = document.getElementsByClassName("demo");
+                var captionText = document.getElementById("caption");
+                if (n > slides.length) {slideIndex = 1}
+                if (n < 1) {slideIndex = slides.length}
+                for (i = 0; i < slides.length; i++) {
+                    slides[i].style.display = "none";
+                }
+                for (i = 0; i < dots.length; i++) {
+                    dots[i].className = dots[i].className.replace(" active", "");
+                }
+                slides[slideIndex-1].style.display = "block";
+                dots[slideIndex-1].className += " active";
+                captionText.innerHTML = dots[slideIndex-1].alt;
+            }
+
+
+        </script>
 {% endblock %}
 
 

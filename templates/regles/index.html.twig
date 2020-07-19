@@ -1,0 +1,197 @@
+{% extends 'base_clara.html.twig' %}
+
+{% block title %}Aide Mega Octet - Règles{% endblock %}
+
+{% block content %}
+    <!--Page règles-->
+    <section id="z2" class="regle">
+        <div id="top_regle">
+            <!--TITRE-->
+            <div class="title">
+                <h1 style="color:#f9c4ff;">Règles du jeu</h1>
+            </div>
+            <!--TITRE-->
+
+            <!--Petit texte-->
+            <p>
+                <em style="color:#f9c4ff; font-size: 1.2vw;">
+                    Le but du jeu est d'être le joueur ayant accumulé le plus de MégaOctet à la fin du jeu. Lancez le dé et avancez votre pion du nombre de cases correspondant au chiffre obtenu. Suivez les instructions figurant sur la case sur laquelle vous vous arrêtez. Chaque heure de la journée, il y a quelque chose à faire. Seule la case Détente vous permet de vous reposer en attendant que ce soit à nouveau votre tour de jouer.
+                </em>
+            </p>
+            <!--Petit texte-->
+            <br>
+            <br>
+            <h2 style="font-family: 'Fjalla One'; color: #f9c4ff; margin: 5% 0;">Appuie sur les cartes pour en savoir plus !</h2>
+            <!--Cartes avec texte qui apparaît en dessous-->
+            <div class="row text-center boutique">
+                <p>
+                    <button class="btnmateriel active" id="btn_1" data-onglet="1" ><img src="{{asset('img/cartes/CarteTP.png')}}" alt=""></button>
+                    <button class="btnmateriel" id="btn_2" data-onglet="2" ><img src="{{asset('img/cartes/CarteNotif.png')}}" alt=""></button>
+                    <button class="btnmateriel" id="btn_3" data-onglet="3" ><img src="{{asset('img/cartes/CarteAction.png')}}" alt=""></button>
+                </p>
+                <div class="div_onglets">
+                    <div id="onglet_1" class="onglet">
+                        <p>
+                            Ces cartes vous permettent de récolter des MégaOctets. Vous pouvez en faire autant que vous voulez. Alors n’hésitez pas ! Gardez chaque carte de ce type jusqu’à ce que vous arriviez sur une case RENDU et échangez-là alors pour sa valeur réelle (indiquée sur la carte) ! Ajouter les Mo à votre compteur. Exemple : Le TP Logotype vous demande 400Mo pour être réalisé. Lorsque vous le rendez, vous récupérez 800Mo - bénéfice: 400Mo ! Remarque : vous n’avez le droit de rendre qu’un TP à la fois. Après l’avoir rendu, remettez la carte sous le paquet.
+                        </p>
+                    </div>
+
+                    <div id="onglet_2" class="onglet">
+                        <p>
+                            Suivez les instructions de la carte que vous avez tirée, puis replacez-la sous le paquet.
+                        </p>
+                    </div>
+
+                    <div id="onglet_3" class="onglet">
+                        <p>
+                            Si vous avez de la chance, ces cartes peuvent vous rapporter beaucoup ! Dans d’autres cas elles ne peuvent être que purement informatives mais elles peuvent aussi vous faire perdre vos précieux MégaOctets. Attendez bien le RÉVEIL pour faire le point sur toutes leurs conséquences.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!--Cartes avec texte qui apparaît en dessous-->
+        </div><!--id="top_regle"-->
+        <br>
+        <h2 style="font-family: 'Fjalla One'; color: #f9c4ff; margin: 5% 0 -1% 0;">Passe ta souris sur les cases pour en savoir plus !</h2>
+        <!--CASES-->
+        <div id="bloc_cases">
+            <div class="pictures">
+
+                <div class="container">
+                    <div class="content wow fadeInLeft">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{ asset('img/cases/case17h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web Enigm'Agency.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Action</h3>
+                            <p class="content-text">Si vous arrivez sur cette case, piochez la première carte de la pile Actions et suivez ses instructions.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content wow fadeInDown">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{asset('img/cases/case6h.jpg')}}" alt="Capture d'écran de la page d'accueil du site web Asobi.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Départ</h3>
+                            <p class="content-text">Tu reçois et paies tes dûs journalier de Mo lorsque tu arrives sur cette case, et tu repars pour une nouvelle journée.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content wow fadeInRight">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{ asset('img/cases/case12h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web Custom'Air.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Détente</h3>
+                            <p class="content-text">Cette case te permet de ne pas perdre de Mo ni d'en gagner, elle porte bien son nom puisque tu n'as rien d'autre à faire que te détendre.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content wow fadeInLeft">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{asset('img/cases/case23h.jpg')}}" alt="Capture d'écran de la page d'accueil du site web Monuments de Troyes.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Loto</h3>
+                            <p class="content-text">Cette case peut te permettre de gagner le gros lot ! Mise 100Mo et tu pourras recevoir jusqu'à 800Mo !</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div class="content wow fadeInDown">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{ asset('img/cases/case14h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Notif</h3>
+                            <p class="content-text">Si vous arrivez sur une case NOTIF, piochez le nombre de cartes NOTIF qui y est indiqué et gardez-les jusqu’à ce que vous arriviez sur la case RÉVEIL (pour en savoir plus, voir la rubrique Les Cartes).</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content wow fadeInDown">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{ asset('img/cases/case13h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case Rendu</h3>
+                            <p class="content-text">Si tu as acquis un TP, c'est le moment pour le rendre et récupérer ton dû !</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container">
+                    <div class="content wow fadeInDown">
+                        <div class="content-overlay"></div>
+                        <img class="content-image" src="{{ asset('img/cases/case15h.jpg') }}" alt="Capture d'écran de la page d'accueil du site web d'un étudiant.">
+                        <div class="content-details fadeIn-bottom">
+                            <h3 class="content-title">Case TP</h3>
+                            <p class="content-text">En tombant sur cette case, tu dois piocher une carte TP, les explications sur cette carte sont au dessus !</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!--class="pictures"-->
+        </div><!--id="bloc_cases"-->
+        <!--CASES-->
+    </section>
+    <!--Page règles-->
+{% endblock %}
+    {% block javascripts %}
+        {{ parent() }}
+        <script>
+            function hideAllElementByClassNam(clName){
+                var onglets = document.getElementsByClassName("onglet");
+                //on masque tous les onglets
+                for (var i = 0; i < onglets.length; i++) {
+                    onglets[i].style.display = 'none';
+                }
+            }
+            function ShowElementById(idElm){
+                document.getElementById(idElm).style.display = "inline-block";
+            }
+            function addClassActiveElm(idElm){
+                var cl_btn_active = document.getElementsByClassName("btnmateriel active");
+                //on retire la class Active de tous les onglets
+                for (var i = 0; i < cl_btn_active.length; i++) {
+                    removeClass(cl_btn_active[i],"active") ;
+                }
+                //on met la class active au bouton cliqué
+                document.getElementById(idElm).className = "btnmateriel active";
+            }
+            function removeClass(e,c) {
+                e.className = e.className.replace( new RegExp('(?:^|\\s)'+c+'(?!\\S)') ,'');
+            }
+            var DisplayHideOnglets = function() {
+                //on masque tous les onglets
+                hideAllElementByClassNam('onglet');
+                //numero de l'onglet à afficher
+                var NumOnglet = this.getAttribute("data-onglet");
+                //on affiche l'onglet
+                if(typeof(NumOnglet) !="undefined" && NumOnglet!=null){
+                    ShowElementById("onglet_"+NumOnglet);
+                    addClassActiveElm("btn_"+NumOnglet);
+                }
+            };
+            function initListener(){
+                //on ajoute le listener
+                var cl_btnmateriel = document.getElementsByClassName("btnmateriel");
+                for (var i = 0; i < cl_btnmateriel.length; i++) {
+                    cl_btnmateriel[i].addEventListener('click', DisplayHideOnglets, false);
+                }
+            }
+            //Initialisation
+            initListener();
+            //par défaut.. on affiche le premier onglet
+
+            // Script pour le popup des cartes
+
+        </script>
+    {% endblock %}

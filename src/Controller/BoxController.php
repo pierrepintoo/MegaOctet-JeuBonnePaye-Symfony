@@ -20,7 +20,7 @@ class BoxController extends AbstractController
      */
     public function index(BoxRepository $boxRepository): Response
     {
-        return $this->render('box/index.html.twig', [
+        return $this->render('box/index2.html.twig.twig', [
             'boxes' => $boxRepository->findAll(),
         ]);
     }

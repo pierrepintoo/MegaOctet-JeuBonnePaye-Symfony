@@ -40,6 +40,10 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-         - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/user, roles: ROLE_ADMIN }
+         - { path: ^/joueur, roles: ROLE_USER }
+         - { path: ^/profil, roles: ROLE_USER }
          - { path: ^/partie, roles: ROLE_USER }
+         - { path: ^/creation, roles: ROLE_USER }
+         - { path: ^/historique, roles: ROLE_USER }
          - { path: ^/login$, roles: IS_AUTHENTICATED_ANONYMOUSLY }

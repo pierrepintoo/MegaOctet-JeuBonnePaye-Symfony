@@ -1,0 +1,69 @@
+
+{% extends 'base_clara.html.twig' %}
+
+{% block content %}
+    <h1> Voici la partie en cours </h1>
+
+    <div id="tabInfosJoueur">
+      {% for user in partie.jouers %}
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      <div class="joueurs">
+        <h2>{{ user.user.username }}</h2>
+        <div class="img_joueurs">
+          <p>case actuelle : {{ user.box }}</p>
+          <p>dernier lancer de dé : {{ user.de }}</p>
+          <p>son pion: {{ user.pion }}</p>
+        </div>
+        <p>argent : {{ user.argent }}</p>
+      </div>
+      {% endfor %}
+    </div>
+
+    <form method="post" action="" name="de">
+        <button type="submit">Lancer le dé</button>
+    </form>
+{% endblock %}

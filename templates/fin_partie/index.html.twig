@@ -1,0 +1,43 @@
+{% extends 'base_clara.html.twig' %}
+
+    {% block title %}Statistiques de la partie{% endblock %}
+
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1 class="form__title">La partie est terminée !</h1>
+
+    <p><em>Et voici le classement tant attendu :</em></p>
+    <h3 class="title_nbTours"><span>Partie en {{ codePartie.nbTours }} tours</span></h3>
+
+    <table class="table">
+        <thead style="background-color: #f8f9fa; color: #7748b9;">
+        <tr>
+            <th scope="col">Place</th>
+            <th scope="col">Identifiant</th>
+            <th scope="col">Mega octets finaux récoltés</th>
+            <th scope="col">Nombre de cartes obtenues</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for joueur in classement%}
+        <tr {% if joueur.classement == 1 %} style="background-color: #efd807;"
+        {% elseif joueur.classement == 2 %} style="background-color: #868992;"
+        {% elseif joueur.classement == 3%} style="background-color: #842e1b;"
+        {% endif %}
+        >
+                <th scope="row">{{ joueur.classement }}</th>
+                <td>{{ joueur.user.username }}</td>
+                <td>{{joueur.argent}}</td>
+                <td>{{joueur.cartes|length}}</td>
+        </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -3,6 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\Jouer;
+use App\Entity\Partie;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
@@ -19,32 +21,26 @@ class JouerRepository extends ServiceEntityRepository
         parent::__construct($registry, Jouer::class);
     }
 
-    // /**
-    //  * @return Jouer[] Returns an array of Jouer objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('j.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Jouer
+    /**
+     * @param Partie $partie
+     * @param User   $user
+     *
+     * @return Jouer|null
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findByUserAndPartie(
+        Partie $partie,
+        User $user
+    ) : ?Jouer
     {
         return $this->createQueryBuilder('j')
-            ->andWhere('j.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('j.partie = :partie')
+            ->andWhere('j.user = :user')
+            ->setParameter('partie', $partie->getId())
+            ->setParameter('user', $user->getId())
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
+
 }

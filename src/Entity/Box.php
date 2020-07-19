@@ -31,6 +31,11 @@ class Box
      */
     private $box_image;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $effet;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +73,18 @@ class Box
     public function setBoxImage(string $box_image): self
     {
         $this->box_image = $box_image;
+
+        return $this;
+    }
+
+    public function getEffet(): ?string
+    {
+        return $this->effet;
+    }
+
+    public function setEffet(string $effet): self
+    {
+        $this->effet = $effet;
 
         return $this;
     }

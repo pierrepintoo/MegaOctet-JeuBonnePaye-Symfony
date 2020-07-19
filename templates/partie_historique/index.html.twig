@@ -1,0 +1,84 @@
+{% extends 'base_clara.html.twig' %}
+
+{% block title %}Historique de tes parties !{% endblock %}
+
+{% block content %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1 class="form__title" style="font-size: 3em; width: 100%; margin:0;">Historique de toutes tes parties</h1>
+    <br>
+    <table class="table table-striped" style="width: 50vw; margin: 5% auto;">
+        <thead>
+        <tr style="background-color: #f8f9fa; color: #7748b9">
+            <th scope="col">Significations des états</th>
+            <th scope="col">Information</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="background-color: #7748b9;">
+            <th scope="row">NC = Non Commencée</th>
+            <td>Vous pouvez rejoindre la salle d'attente en cliquant sur le bouton "Rejoindre la salle d'attente"</td>
+        </tr>
+        <tr style="background-color: #d39e00">
+            <th scope="row">EC = En Cours</th>
+            <td>Vous pouvez rejoindre la rejoindre la partie en cliquant sur le bouton de "Rejoindre"</td>
+        </tr>
+        <tr style="background-color: #67b168;">
+            <th scope="row">T = Terminée et victoire</th>
+            <td>Si la ligne est verte, c'est que la partie a été gagnée par vous, cliquez sur "Voir récapitulatif" pour voir les détails de la partie</td>
+        </tr>
+        <tr style="background-color: #aa2c4e;">
+            <th scope="row">T = Terminée et perdue</th>
+            <td>Si la ligne est rouge, c'est que la partie a été perdue, cliquez sur "Voir récapitulatif" pour voir les détails de la partie</td>
+        </tr>
+        </tbody>
+    </table>
+    <br><br>
+    <table class="table table-striped">
+        <thead>
+        <tr style="background-color: #f8f9fa; color: #7748b9">
+            <th scope="col">Code</th>
+            <th scope="col">Classement</th>
+            <th scope="col">Mega octets</th>
+            <th scope="col">État</th>
+            <th scope="col">Nombre de tours</th>
+            <th scope="col">Nombre de tours Restants</th>
+            <th scope="col">Rejoindre si possible</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for partie in parties|reverse %}
+            <tr
+                    {% if partie.classement == 1 and partie.partie.partieEtat == "T" %} style="background-color: #67b168;"
+                    {% elseif partie.classement > 1 and partie.partie.partieEtat == "T" %} style="background-color: #aa2c4e;"
+                    {% elseif partie.partie.partieEtat == "EC" %} style="background-color: #d39e00;"
+                    {% elseif partie.partie.partieEtat == "NC" %} style="background-color: #7748b9;"
+                    {% endif %}
+            >
+                <th scope="row">{{ partie.partie.id }}</th>
+                <td>{{partie.classement}}</td>
+                <td>{{partie.argent}}</td>
+                <td>{{ partie.partie.partieEtat }}</td>
+                <td>{{ partie.partie.nbTours }}</td>
+                <td>{{ partie.partie.nbToursRestants }}</td>
+                <td>
+                    {% if partie.partie.partieEtat == "EC"%}
+                        <a href="{{ path('partie_app_partie', {'codePartie':partie.partie.id}) }}"><button type="button" class="btn btn-outline-light text-dark">Rejoindre</button></a>
+                    {% elseif partie.partie.partieEtat == "NC" %}
+                    <a href="{{ path('partie_new-partie', {'codePartie':partie.partie.id}) }}"><button type="button" class="btn btn-outline-light text-dark">Rejoindre la salle d'attente</button></a>
+                    {% elseif partie.partie.partieEtat == "T" %}
+                        <a href="{{ path('fin_partie', {'codePartie':partie.partie.id}) }}"><button type="button" class="btn btn-outline-light text-dark">Voir le récapitulatif</button></a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

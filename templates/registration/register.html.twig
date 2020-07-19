@@ -1,15 +1,43 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_clara.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Inscription MegaOctet{% endblock %}
 
 {% block content %}
-    <h1>Register</h1>
+    <h1 class="form__title">Inscription</h1>
+    <section class="page_conect">
+        <div class="conect">
+            <div class="form">
+            {{ form_start(registrationForm) }}
+            </div>
+            <div class="form">
+            {{ form_row(registrationForm.username) }}
+            </div>
+            <div class="form">
+            {{ form_row(registrationForm.mail) }}
+                <p style="margin-top: -15px;" ><em>Tu receveras un e-mail de confirmation dans ta boite.</em></p>
+            </div>
+            <div class="form">
+                {{ form_row(registrationForm.tel) }}
+            </div>
+            <div class="form">
+                {{ form_row(registrationForm.avatar) }}
+            </div>
+            <div class="form">
+                {{ form_row(registrationForm.bio) }}
+            </div>
+            <div class="form">
+                {{ form_row(registrationForm.passions) }}
+            </div>
+            <div class="form">
+                {{ form_row(registrationForm.plainPassword) }}
+            </div>
+            <div class="form">
+            {{ form_row(registrationForm.agreeTerms) }}
+                <p style="margin: -2vh 0 0 23%;"><em>Tu peux les consulter <a href="{{ path('c_g_u') }}" style="text-decoration: underline;">ici</a></em></p>
+            </div>
+        <button class="button_conect btn">S'inscrire</button>
+        {{ form_end(registrationForm) }}
+        </div>
+    </section>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.username) }}
-        {{ form_row(registrationForm.plainPassword) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button class="btn">Register</button>
-    {{ form_end(registrationForm) }}
 {% endblock %}

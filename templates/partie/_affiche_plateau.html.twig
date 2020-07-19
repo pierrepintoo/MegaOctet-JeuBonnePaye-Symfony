@@ -1,0 +1,98 @@
+<table class="tabInfosJoueur">
+    <tbody>
+    {% for user in partie.jouers %}
+        <tr {% if user.user.id == app.user.id %}style="background-color: lightblue"{% endif %} >
+            <td>{{ user.user.username }}</td>
+            <td>Case actuelle : {{ user.box }}</td>
+            <td>Argent : {{ positionsJoueurs[user.user.id]['argent'] }}</td>
+            <td>Dernier lancé de dé : {{ user.de }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<div class="col-md-10" id="my-game-play">
+    <div class="row" id="plateau-cases">
+        {% for case in cases %}
+            <div class="col-sm-3 case">
+                <h2>{{ case.BoxPosition }}</h2>
+                <p style="color:red;">{{ case.effet }}</p>
+                <p>{% if positions[case.BoxPosition] is defined %}
+                        {% for user in positions[case.BoxPosition] %}
+                            <span class="pion {{ user.pion }}">{{ user.user.username }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </p>
+
+            </div>
+        {% endfor %}
+        <br>
+
+
+    </div>
+    <div class="row" id="plateau-actions">
+        <div class="col-sm-3">
+            <h2>Ma tune</h2>
+            xx €
+        </div>
+        <div class="col-sm-3">
+            <h2>Mes cartes</h2>
+            <!-- là ira la boucle pour les cartes -->
+            <p>
+                {% for user in partie.jouers %}
+                    {% if user.user.id == app.user.id %}
+                        <span>{{ user.cartes.nom }}</span>
+                        <span>{{ user.cartes.montant }}</span>
+                        <span>{{ user.cartes.gain }}</span>
+                    {% endif %}
+                {% endfor %}
+
+            </p>
+        </div>
+
+        <div class="col-sm-3" id="btns-game">
+            <button class="btn btn-block btn-info" id="lance_de">Lancé Dé</button>
+            <button class="btn btn-block btn-danger" id="fin-du-tour">Fin du tour</button>
+            <button class="btn btn-block btn-danger" id="fin-du-tour2">J'achête pas le TP et je fais une fin de tour</button>
+            <button class="btn btn-block btn-danger" id="fin-du-tour-loterie">Ne pas faire de loterie et faire une fin de tour</button>
+            <button class="btn btn-block btn-danger" id="jouer-carte-tp">J'achête le TP</button>
+            <button class="btn btn-block btn-info" id="lancer-de-loterie">Lancer le dé de la loterie</button>
+            <form id="form__miserLoterie" method="post">
+                <label>Sur quel dé veux-tu miser pour la loterie ?</label>
+                <input type="number" name="deMiser" step="1" min="1" max="6">
+                <button type="submit">Miser le dé</button>
+            </form>
+        </div>
+    </div>
+
+</div>
+<div class="col-md-10" id="my-game-pause">
+    <div class="row" id="plateau-cases">
+        {% for case in cases %}
+            <div class="col-sm-3 case">
+                <h2>{{ case.BoxPosition }}</h2>
+                <p style="color:red;">{{ case.effet }}</p>
+                <p>{% if positions[case.BoxPosition] is defined %}
+                        {% for user in positions[case.BoxPosition] %}
+                            <span class="pion {{ user.pion }}">{{ user.user.username }}</span>
+                        {% endfor %}
+
+                    {% endif %}
+                </p>
+
+            </div>
+        {% endfor %}
+        <br>
+        <div id="newCarte">Tu as pioché une nouvelle carte !</div>
+        <!-- là ira la boucle pour les cartes -->
+        <p>
+            {% for user in partie.jouers %}
+                {% if user.user.id == app.user.id %}
+                    <span>{{ user.cartes.nom }}</span>
+                    <span>{{ user.cartes.montant }}</span>
+                    <span>{{ user.cartes.gain }}</span>
+                {% endif %}
+            {% endfor %}
+        </p>
+
+    </div>
+</div>

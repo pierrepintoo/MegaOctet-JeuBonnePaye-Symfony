@@ -1,14 +1,25 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_clara.html.twig' %}
 
 {% block title %}
 
 {% endblock %}
 
 {% block content %}
+    <h1 class="form__title">Rejoins une partie !</h1>
     <form action="" method="post">
-        <label for="codeRecupere">Insère un code de partie</label>
-        <input type="number" name="codeRecupere">
-        <button type="submit">Rejoindre une partie</button>
+        <section class="page_conect">
+            <div class="conect">
+                <div class="form">
+                    <div class="form-group">
+                        <label for="codeRecupere">Insère un code de partie.</label>
+                        <p><em>Ton ami dans la salle d'attente doit te le transmettre !</em></p>
+                        <input class="form-control" placeholder="Entrez un code partie" type="number" name="codeRecupere">
+                        {%  if messageErreur is defined %} <p style="color:#fd3550;"><em>{{ messageErreur }}</em></p>{% endif %}
+                    </div>
+                </div>
+                <button class="button_conect btn" type="submit">Rejoindre une partie</button>
+            </div>
+        </section>
     </form>
 {% endblock %}
 

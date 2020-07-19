@@ -1,0 +1,26 @@
+{#
+{% extends 'base_clara.html.twig' %}
+
+{% block title %}Chat Mega Octet{% endblock %}
+
+{% block content %}
+    <section class="page_conect">
+        <div class="conect">
+            <div class="form creation_partie">
+                {{ form_start(ChatType) }}
+                <h1 class="form__title" style="margin:auto;">Création d'une partie</h1>
+                {{ form_row(message) }}
+            </div>
+            <button class="button_conect btn">Crée ta partie</button>
+            <div class="form">
+                <p><em>Info : minimum un tour et maximum dix tour</em></p>
+            </div>
+            {% for message in messages %}
+            <div class="form">
+                <p><em>{{ message.user.username}}</em> : {{ message.message }} - {{ message.date }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
+#}

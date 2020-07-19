@@ -46,6 +46,11 @@ class Carte
      */
     private $carte_montant;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $gain_mise;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -121,5 +126,32 @@ class Carte
         $this->carte_montant = $carte_montant;
 
         return $this;
+    }
+
+    public function getGainMise(): ?int
+    {
+        return $this->gain_mise;
+    }
+
+    public function setGainMise(int $gain_mise): self
+    {
+        $this->gain_mise = $gain_mise;
+
+        return $this;
+    }
+
+    public function getJson()
+    {
+        //on pourrait le faire avec un sérializer... mais pas l'objet de ce module
+        $t['id'] = $this->getId();
+        $t['nom'] = $this->getCarteNom();
+        $t['effet'] = $this->getCarteEffet();
+        $t['image_recto'] = $this->getCarteImageRecto();
+        $t['image_verso'] = $this->getCarteImageVerso();
+        $t['montant'] = $this->getCarteMontant();
+        $t['type'] = $this->getCarteType();
+        $t['gain'] = $this->getGainMise();
+
+        return $t;
     }
 }

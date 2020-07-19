@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PartieRepository")
@@ -26,7 +27,7 @@ class Partie
     /**
      * @ORM\Column(type="integer")
      */
-    private $partie_qui_joue = 1;
+    private $partie_qui_joue;
 
     /**
      * @ORM\Column(type="integer")
@@ -41,7 +42,7 @@ class Partie
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $partie_defausse = '';
+    private $partie_defausse;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -51,7 +52,7 @@ class Partie
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $partie_etat = "En cours";
+    private $partie_etat = "NC";
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -62,6 +63,32 @@ class Partie
      * @ORM\OneToMany(targetEntity="App\Entity\Jouer", mappedBy="partie")
      */
     private $jouers;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $banque;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $qui_joue_loterie;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $codeRejoindre;
+
+    /**
+     * @ORM\Column(type="integer")
+     *
+     */
+    private $nbTours;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $nbToursRestants;
 
     public function __construct()
     {
@@ -203,5 +230,70 @@ class Partie
         return $this;
     }
 
+    public function getBanque(): ?int
+    {
+        return $this->banque;
+    }
+
+    public function setBanque(?int $banque): self
+    {
+        $this->banque = $banque;
+
+        return $this;
+    }
+
+    public function getQuiJoueLoterie(): ?int
+    {
+        return $this->qui_joue_loterie;
+    }
+
+    public function setQuiJoueLoterie(?int $qui_joue_loterie): self
+    {
+        $this->qui_joue_loterie = $qui_joue_loterie;
+
+        return $this;
+    }
+
+    public function getCodeRejoindre(): ?int
+    {
+        return $this->codeRejoindre;
+    }
+
+    public function setCodeRejoindre(int $codeRejoindre): self
+    {
+        $this->codeRejoindre = $codeRejoindre;
+
+        return $this;
+    }
+
+    public function getNbTours(): ?int
+    {
+        return $this->nbTours;
+    }
+
+    public function setNbTours(int $nbTours): self
+    {
+        $this->nbTours = $nbTours;
+
+        return $this;
+    }
+
+    public function getNbToursRestants(): ?int
+    {
+        return $this->nbToursRestants;
+    }
+
+    public function setNbToursRestants(int $nbToursRestants): self
+    {
+        $this->nbToursRestants = $nbToursRestants;
+
+        return $this;
+    }
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->getPartieEtat();
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 }

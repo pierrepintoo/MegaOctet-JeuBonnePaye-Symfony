@@ -47,7 +47,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $avatar = "default.jpg";
+    private $avatar;
 
     /**
      * @ORM\Column(type="integer")
@@ -68,6 +68,32 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $argentTotal = 0;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $bio = "Je suis newbie sur MegaOctet, donc un peu d'aide serait la bienvenue &hearts;";
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tel = '012345678';
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $grade;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $victoires = 0;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $passions;
+
 
 
 
@@ -181,12 +207,12 @@ class User implements UserInterface
         return $this;
     }
     
-    public function getAvatar(): ?string
+    public function getAvatar()
     {
         return $this->avatar;
     }
 
-    public function setAvatar(string $avatar): self
+    public function setAvatar($avatar)
     {
         $this->avatar = $avatar;
 
@@ -241,6 +267,72 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getBio(): ?string
+    {
+        return $this->bio;
+    }
+
+    public function setBio(string $bio): self
+    {
+        $this->bio = $bio;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getGrade(): ?string
+    {
+        return $this->grade;
+    }
+
+    public function setGrade(?string $grade): self
+    {
+        $this->grade = $grade;
+
+        return $this;
+    }
+
+    public function getVictoires(): ?int
+    {
+        return $this->victoires;
+    }
+
+    public function setVictoires(int $victoires): self
+    {
+        $this->victoires = $victoires;
+
+        return $this;
+    }
+
+    public function getPassions(): ?string
+    {
+        return $this->passions;
+    }
+
+    public function setPassions(?string $passions): self
+    {
+        $this->passions = $passions;
+
+        return $this;
+    }
+
+    public function __toString(){
+        // to show the name of the Category in the select
+        return $this->getUsername();
+        // to show the id of the Category in the select
+        // return $this->id;
+    }
 
 
 
